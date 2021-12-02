@@ -1,0 +1,9 @@
+# ignore ALL .log files
+*.log
+*.aux
+*.gz
+*.toc
+*.out
+
+# ignore ALL files in ANY directory named temp
+temp/
