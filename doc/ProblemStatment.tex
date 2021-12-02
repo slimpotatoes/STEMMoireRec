@@ -1,0 +1,86 @@
+\documentclass[
+11pt,
+a4paper,
+oneside,
+onecolumn,
+final %Final visual
+]{article}
+
+% Packages
+\usepackage[utf8]{inputenc} % Deal with international characters
+\usepackage[T1]{fontenc} % Deal with international character 
+\usepackage[binary-units=true]{siunitx} % Scientific units (micro-liter, etc)
+\usepackage{graphicx} % Include images in text
+\usepackage{enumerate} % Have access to bullet points
+\usepackage{float} % Position the figures with H (floating point)
+\usepackage{amsmath, mathtools, amsfonts, amssymb} % Equations and math symbol
+\usepackage{bm} % Bold font in math expression
+\usepackage{array} % Tables
+\usepackage{longtable} % Tables through multiple pages
+\usepackage{booktabs} % Visual parameter on tables
+\usepackage{multirow}
+
+% Referencing
+\usepackage{hyperref} % Style for referencing
+\usepackage{cleveref} % Internal referencing system + citing biblio
+\usepackage{csquotes} % Quoting sentences
+
+% Page style (think about memoir documentation if printing is not good)
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, includeheadfoot]{geometry}
+
+% Text font, style and rules
+\renewcommand{\arraystretch}{1.2} % Rule to apply on all table (stretch array)
+\renewcommand{\familydefault}{ppl} % font generic text
+\usepackage{xcolor} % Custom color
+\definecolor{color_citation}{RGB}{50,170,50}
+\hypersetup{
+    %bookmarks=true,% show bookmarks bar?
+    colorlinks=true, % false: boxed links; true: colored links
+    linkcolor=red, % color of internal links (change box color with %linkbordercolor)
+    citecolor=color_citation, % color of links to bibliography
+    filecolor=magenta, % color of file links
+    urlcolor=blue % color of external links
+}
+\usepackage{indentfirst} % Indent at the begining of the paragraph automatically
+\setcounter{secnumdepth}{4} % numbering to subsubsections
+\setcounter{tocdepth}{4} % table of content showing up to the level of subsubsection
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\} % Start a new line when doing a paragraph
+
+\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
+\setlength{\floatsep}{10pt plus 1.0pt minus 1.0pt}
+\setlength{\intextsep}{10pt plus 1.0pt minus 1.0pt}
+\newenvironment{tight_enumerate}{
+\begin{enumerate}
+  \setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+}{\end{enumerate}}
+
+\begin{document}
+
+\title{\huge Problem Statement : \\ STEMMoireRec}
+\author{slimpotatoes}
+\maketitle
+
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\section{Introduction}
+
+Imaging in Scanning Transmission Electron Microscopy (STEM) is dependent on the sampling scheme chosen to record an electron micrograph.
+
+
+\section{Objective}
+
+The objective of STEMMoireRec is to reconstruct the oversampled image from a STEM Moir{\'e} hologram. 
+
+\section{Interests}
+
+
+
+
+%\bibliographystyle{IEEEtran}
+%\bibliography{../Ref/MoireSampling_biblio.bib}
+
+\end{document}

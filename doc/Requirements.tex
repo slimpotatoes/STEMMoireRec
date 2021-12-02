@@ -1,0 +1,573 @@
+\documentclass[12pt]{article}
+
+% Author's up-front packages
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Packages on template
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+
+% ---- Author's choice to remove them ----
+%\usepackage[round]{natbib}
+%\usepackage{refcheck}
+
+% Author's packages
+\usepackage{cite}
+\usepackage{indentfirst}
+\usepackage{cleveref}
+\usepackage{float}
+\usepackage{xcolor}
+\definecolor{shadecolorIM}{RGB}{0,200,0}
+\definecolor{shadecolorT}{RGB}{0,191,255}
+\definecolor{shadecolorDD}{RGB}{186,85,211}
+\definecolor{shadecolorR}{RGB}{255,0,0}
+
+\hypersetup{
+    %bookmarks=true,			% show bookmarks bar?
+    colorlinks=true,			% false: boxed links; true: colored links
+    linkcolor=red,				% color of internal links (change box color with 
+%linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+% For easy change of table widths
+\newcommand{\colZwidth}{1.0\textwidth}
+\newcommand{\colAwidth}{0.13\textwidth}
+\newcommand{\colBwidth}{0.82\textwidth}
+\newcommand{\colCwidth}{0.1\textwidth}
+\newcommand{\colDwidth}{0.05\textwidth}
+\newcommand{\colEwidth}{0.8\textwidth}
+\newcommand{\colFwidth}{0.17\textwidth}
+\newcommand{\colGwidth}{0.5\textwidth}
+\newcommand{\colHwidth}{0.28\textwidth}
+
+
+% Used so that cross-references have a meaningful prefix
+\newcommand{\progname}{STEMMoireRec}
+
+\usepackage{fullpage}
+
+%Set the custom referencing system (author's initiative)
+	% Goal Statement
+\newtheorem{GS}{GS}
+\crefname{GS}{GS}{GSs}
+	% Assumption
+\newtheorem{A}{A}
+\crefname{A}{A}{As}
+	% Theoretical Model
+\newtheorem{T}{T}
+\crefname{T}{T}{Ts}
+	% Data Definition
+\newtheorem{DD}{DD}
+\crefname{DD}{DD}{DDs}
+	% Data Constraints
+\newtheorem{DC}{DC}
+\crefname{DC}{DC}{DCs}
+	% Instance Model
+\newtheorem{IM}{IM}
+\crefname{IM}{IM}{IMs}
+	% General Definition
+\newtheorem{GD}{GD}
+\crefname{GD}{GD}{GDs}
+	% Requirement
+\newtheorem{R}{R}
+\crefname{R}{R}{Rs}
+	% Non Functional Requirement
+\newtheorem{NR}{NR}
+\crefname{NR}{NR}{NRs}
+	% Likely change
+\newtheorem{LC}{LC}
+\crefname{LC}{LC}{LCs}
+
+\begin{document}
+
+
+\title{Software Requirements Specifications (SRS) \\
+STEM Moir{\'e} GPA} 
+\author{Alexandre Pofelski \\
+		macid: pofelska \\
+		github: slimpotatoes}
+\date{\today}
+
+\maketitle
+
+\clearpage
+
+\pagenumbering{roman}
+\tableofcontents
+
+\clearpage
+
+\section{Revision History}
+
+\begin{table}[h]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+xx/xx/xxxx & 1.0 & First Draft\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+
+\section{Reference Material}
+
+\subsection{Table of Units}
+
+Throughout this document SI 
+(\href{<https://physics.nist.gov/cuu/Units/index.html>}{Syst\`{e}me 
+Internationale d'Unit\'{e}s}) is employed as the unit system. In addition to the 
+basic units, several derived units are used as described below.  For each unit, 
+the symbol is given followed by a description of the unit and the SI name.\par 
+\bigskip
+
+\renewcommand{\arraystretch}{1.2}
+%\begin{table}[ht]
+  \noindent \begin{tabular}{l l l} 
+    \toprule		
+    \textbf{Symbol} & \textbf{Base quantity} & \textbf{Name SI}\\
+    \midrule 
+    \si{\metre} & length & metre\\
+    \si{\per\metre} & reciprocal meter & wave number\\
+    \bottomrule
+  \end{tabular}
+  %	\caption{Provide a caption}
+%\end{table}
+
+\subsection{Table of Symbols}
+
+The table that follows summarizes the symbols used in this document along with
+their units if applicable.
+
+%\renewcommand{\arraystretch}{1.2}
+\noindent 
+\begin{longtable*}{l l p{12cm}} 
+\toprule
+\textbf{Symbol} & \textbf{Unit} & \textbf{Description}\\
+\midrule
+\endhead
+$\mathcal{B}_2$ & & 2D orthonormal base \\
+$\mathcal{B}_3$ & & 3D orthonormal base \\
+$\mathcal{C}$ & & Ceiling function \\
+$\delta$ & & Dirac delta function \\
+$\Delta \overrightarrow{g_{j}}^{M_{\text{exp}}}$ & \si{\per\nano\meter} & 
+Variation of
+the $j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$ \\
+$\Delta \overrightarrow{g_{j}}^{C_{\text{exp}}}$ & \si{\per\nano\meter} & 
+Variation of the $j^{\text{th}}$ crystalline wave vector of 
+$\mathit{SMH}_{\text{exp}}$\\
+$\mathcal{FT}$ & & Fourier transform \\
+$\Gamma$ & & Spatial frequency range \\
+$\overrightarrow{g_{j}}$ & \si{\per\nano\meter} & $j^{\text{th}}$ wave vector \\
+$g_{j_x}$ & \si{\per\nano\meter} & Component of the $j^{\text{th}}$ wave vector 
+along $\vec{u_x}$ \\
+$g_{j_y}$ & \si{\per\nano\meter} & Component of the $j^{\text{th}}$ wave vector 
+along $\vec{u_y}$ \\
+$\overrightarrow{g_{j}}^{C}$ & \si{\per\nano\meter} & $j^{th}$ crystalline wave 
+vector \\
+$\overrightarrow{g_{j}}^{C_{\text{ref}}}$ & \si{\per\nano\meter} & 
+$j^{\text{th}}$ crystalline wave vector of $I_{C_{\text{ref}}}$ \\
+$\overrightarrow{g_{j}}^{C_{\text{exp}}}$ & \si{\per\nano\meter} & 
+$j^{\text{th}}$ crystalline wave vector of $\mathit{SMH}_{\text{exp}}$\\
+$\overrightarrow{g_{j}}^{C_{\text{exp}}}_{\text{uns}}$ & \si{\per\nano\meter} & 
+$j^{\text{th}}$ crystalline wave vector of $\mathit{SMH}_{\text{exp}}$ at its 
+unstrained state\\
+$\overrightarrow{g_{j}}^{M_{\text{exp}}}$ & \si{\per\nano\meter} & 
+$j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$\\
+$\overrightarrow{g_{j}}^{M_{\text{exp}}}_{\text{uns}}$ & \si{\per\nano\meter} & 
+$j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$ at its 
+unstrained state\\
+$i$ & & Imaginary unit \\
+$I$ & & Intensity (or number of counts) \\
+$\mathbb{I}$ & & Sub-set of $\mathbb{R}$ representing the position of the pixels 
+in an image\\
+$I_{C_{\text{ref}}}$ & & 2D array representing the reference crystal structure 
+\\
+$I_{\mathit{SMH}_{\text{exp}}}$ & & 2D array representing the experimental SMH\\
+$I_{\mathit{SMH}_{\text{sim}}}$ & & 2D array representing the simulated SMH\\
+$M_j$ & & Mask function in Fourier space including the $j^{\text{th}}$ wave 
+vector\\
+$\mathbb{N}$ & & Set of natural numbers\\
+$\nabla$ & & Gradient operator\\
+$\nabla u$ & & Displacement gradient tensor\\
+$\vec{\nu}$ & \si{\per\nano\meter} & Vector position in Fourier space\\
+$O$ & & Origin of the coordinate system \\
+$p$ & \si{\nano\meter} & Pixel size of the experimental SMH 
+$I_{\mathit{SMH}_{\text{exp}}}$ \\
+$p_{\text{ref}}$ & \si{\nano\meter} & Pixel size of the reference image 
+$I_{C_{\text{ref}}}$ \\ 
+$P_{\overrightarrow{X}}$ & rad & 2D array representing 
+$2\pi\overrightarrow{X}\cdot\vec{r}$\\
+$\overrightarrow{q_{n_j,m_j}}$ & & Sampling vector $\vec{q} \in Q$ of couple 
+$(n_j,m_j)$\\
+$Q$ & & Set such that $Q=\{\forall (n,m) \in \mathbb{Z}^{2}, 
+\vec{q}=n\vec{u_x}+m\vec{u_y}\}$ \\
+$\vec{r}$ & \si{\nano\meter} & Vector position \\
+$\mathbb{R}$ & & Set of real numbers \\
+$\mathit{SMH}_{\text{exp}}$ & & 2D array representing the experimental STEM 
+Moir{\'e} Hologram \\
+$\mathit{SMH}_{\text{sim}}$ & & 2D array representing the simulated STEM 
+Moir{\'e} Hologram \\
+$\vec{u_x}$ & & Unitary vector from base $\mathcal{B}$ \\
+$\vec{u_y}$ & & Unitary vector from base $\mathcal{B}$ \\
+$\wedge$ & & Mathematical symbol for "and"\\
+$\bigwedge$ & & Cross product operator\\
+$\mathbb{Z}$ & & Set of integer numbers\\
+\bottomrule
+\label{table_symbols_SRS}
+\end{longtable*}
+
+\subsection{Abbreviations and Acronyms}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l l} 
+  \toprule		
+  \textbf{symbol} & \textbf{description}\\
+  \midrule 
+  A & Assumption\\
+  AU & Arbitrary Unit\\
+  DC & Data Constraint \\
+  DD & Data Definition\\
+  EM & Electron Micrograph \\
+  GD & General Definition\\
+  GS & Goal Statement\\
+  IM & Instance Model\\
+  LC & Likely Change\\
+  PS & Physical System Description\\
+  NR & Non functional Requirement\\
+  R & Requirement\\
+  SMH & STEM Moir{\'e} Hologram \\
+  SRS & Software Requirements Specification\\
+  STEM & Scanning Transmission Electron Microscopy \\
+  T & Theoretical Model\\
+  \bottomrule
+  \label{table_acro_SRS}
+\end{tabular}
+
+\newpage
+\pagenumbering{arabic}
+
+\section{Specific System Description}
+\subsection{Problem Description} \label{Sec_pd}
+
+BLABLA. Terminologies and the physical system are 
+described below.
+
+\subsubsection{Terminology and Definitions}
+
+\begin{itemize}
+
+\item \textbf{3D Cartesian coordinate system}: orthonormal coordinate system 
+model by the base $\mathcal{B}=(O,\vec{u_x},\vec{u_y},\vec{u_z} )$ with $O$ representing 
+the origin and $M$ a point with coordinate the $(x,y,z)$, such that any vector 
+$\vec{r}=\overrightarrow{\mathit{OM}}$ can be expressed as the following :
+\begin{equation}
+\forall (x,y,z) \in \mathbb{R}^{3}, \vec{r}=x\vec{u_x}+y\vec{u_y}+z\vec{u_z}
+\end{equation}
+\item \textbf{Pixel}: xxx
+\item \textbf{Electron Micrograph (EM)}: 2D array collected in an electron 
+microscope representing the number of electron crossing the sample (intensity) 
+at each pixel location.
+\item \textbf{Scanning grid}: set representing the succession of the STEM probe 
+positions when collecting the STEM EM. Equivalently the scanning grid represents 
+the relative position of the pixel with respect to the sample when acquiring the 
+EM. A simplified version of the 
+STEM EM formation can be visualized in \cref{fig:STEM_imaging_Fig}. The 
+positions of the STEM probe are located at the intersection of the black grid 
+lines.
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[scale=0.7]{Figures/STEM_imaging_Fig.png}
+%\caption{(Left) Schematic of the STEM EM formation with the STEM probe scanning 
+%the sample at each intersection of the grid lines. The electrons crossing the 
+%sample are collected on the detector and counted during the acquisition time. 
+%(Right) STEM EM on a pure silicon sample revealing its atomic structure. In the 
+%inset is highlighted the type of data the STEM EM corresponds to which is a 2D 
+%array with the intensity collected on each pixel.}
+%\label{fig:STEM_imaging_Fig}
+%\end{center}
+%\end{figure}
+\item \textbf{Crystal lattice}: Periodic arrangement of atoms forming matter.
+\item \textbf{STEM Moir{\'e} hologram (SMH)}: EM collected in STEM and resulting 
+from the interference between the scanning grid and the crystal lattice. 
+\end{itemize}
+
+\subsubsection{Physical System Description}
+
+The physical system of \progname{}, as shown in \cref{fig:system_description}, 
+includes the following elements:
+\begin{itemize}
+\item The STEM Moir{\'e} hologram as the results of the interaction between the 
+scanning grid and the crystal periodicity of the sample.
+\item Physical inputs provided by the user to convert a STEM Moir{\'e} hologram 
+into strain and rotation maps.
+\end{itemize}
+
+%\begin{figure}[H]
+%\begin{center}
+%\includegraphics[scale=0.65]{Figures/System_description.png}
+%\caption{Physical system of \progname{} highlighted in the yellow area.}
+%\label{fig:system_description}
+%\end{center}
+%\end{figure}
+
+\subsubsection{Goal Statements}
+\noindent Given the system description, the goal statement is:
+\begin{GS}
+\normalfont Reconstruct an oversampled image from a STEM Moir{\'e} hologram
+\label{GS_1}
+\end{GS}
+
+\subsection{Solution Characteristics Specification}
+
+\subsubsection{Assumptions}
+
+\begin{A}
+\normalfont The resolution of the microscope cannot resolve any spatial frequency higher than 
+$g_{j_{\text{lim}}}$. 
+\label{A_1}
+\end{A}
+\begin{A}
+\normalfont Uniform orthogonal and uniform samplers are considered.
+\label{A_2}
+\end{A}
+\begin{A}
+\normalfont Blabla
+\label{A_3}
+\end{A}
+\begin{A}
+\label{A_4}
+\normalfont Blabla
+\end{A}
+
+
+\subsubsection{Theoretical Models}\label{sec_theoretical}
+
+\begin{T}
+\label{T_1}
+\noindent\colorbox{shadecolorT}{\normalfont \textbf{2D periodic sampling}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}: \Cref{eq:sampling_simplified}
+\item \underline{Description}: In the 2D Cartesian coordinate system 
+$\mathcal{B}_2$, the scanning grid can be seen as sampler $S$ sampling a 
+continuous function $f$. In the context of the \progname{} project, the sampler 
+is set to be periodic with the same periodicity $p$ (called pixel size) in both 
+$x$ and $y$ directions (2D Dirac comb). The resulting sampled version $f_S$ of 
+$f$ can be represented as the following with $\delta$ representing the Dirac 
+function:
+\begin{equation}
+\begin{gathered}
+\forall (x,y) \in \mathbb{R}^{2}, f_S(x,y)=S(x,y)\times f(x,y) \\
+\forall (x,y) \in \mathbb{R}^{2}, 
+f_S(x,y)=\sum_{n=-\infty}^{n=+\infty}\sum_{m=-\infty}^{m=+\infty}\delta(x-np,y-mp)\times 
+f(x,y)
+\end{gathered}
+\label{eq:sampling}
+\end{equation}
+For shorter notations, it is possible to define a set Q as follows $Q=\{\forall 
+(n,m) \in \mathbb{Z}^{2}, \vec{q}=n\vec{u_x}+m\vec{u_y}\}$ and thus simplify 
+\cref{eq:sampling}
+\begin{equation}
+\forall (x,y) \in \mathbb{R}^{2}, f_S(\vec{r})=\sum_{q\in 
+Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
+\label{eq:sampling_simplified}
+\end{equation}
+\item \underline{Source}: \cite{Gonzalez_1992}
+\item \underline{Ref by}: \cref{DD_2}, \cref{IM_1}, \cref{IM_4}
+\end{itemize}
+\end{T}
+
+\begin{T}
+\label{T_2}
+\noindent\colorbox{shadecolorT}{\normalfont \textbf{Crystal lattice}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}: \Cref{eq:crystal_1}
+\item \underline{Description}: In the 3D Cartesian coordinate system $\mathcal{B}_3$, the periodic arrangement of a crystalline material in reciprocal space is as follows with $\vec{a}$, $\vec{b}$ and $\vec{c}$ describing the crystal unit cell:
+\begin{equation}
+\forall (u,v,w) \in \mathbb{Z}^{3}, \ \overrightarrow{OM}(u,v,w) = \vec{r_C} = u \vec{a} + v \vec{b} + w \vec{c} 
+\end{equation}
+\item \underline{Source}: xxx
+\item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
+\end{itemize}
+\end{T}
+
+\begin{T}
+\label{T_3}
+\noindent\colorbox{shadecolorT}{\normalfont \textbf{Reciprocal crystal lattice}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}: \Cref{eq:reciprocal_crystal_1}
+\item \underline{Description}: Reciprocal crystal lattice
+\begin{equation}
+\begin{cases}
+\vec{a}^{*} = \frac{\vec{b}\times \vec{c}}{\vec{a}\cdot(\vec{b}\times \vec{c})} \\
+\vec{b}^{*} = \frac{\vec{c}\times \vec{a}}{\vec{b}\cdot(\vec{c}\times \vec{a})} \\
+\vec{c}^{*} = \frac{\vec{a}\times \vec{b}}{\vec{c}\cdot(\vec{a}\times \vec{b})}
+\end{cases}
+\end{equation}
+\item \underline{Source}: xxx
+\item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
+\end{itemize}
+\end{T}
+
+\begin{T}
+\label{T_4}
+\noindent\colorbox{shadecolorT}{\normalfont \textbf{Reconstruction of a sparse bandwidth-limited periodic function}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}: \Cref{eq:strain_2}
+\item \underline{Description}: Bla
+\item \underline{Source}: \cite{Hytch1998,Rouviere2005}
+\item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
+\end{itemize}
+\end{T}
+
+\subsubsection{Data Definitions}\label{sec_datadef}
+
+\renewcommand{\labelitemi}{$\star$}
+
+\begin{DD}
+\label{DD_1}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Variation of the 
+crystalline wave vector $\Delta \overrightarrow{g_j}$ (strain in crystal 
+lattice)}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}: \Cref{eq:Strain_GPA}
+\item \underline{Description}: For the purpose of the STEM Moir{\'e} GPA, only 
+mono-crystalline samples are analysed (\cref{A_7}). In the case of a perfect 
+periodic atomic arrangement, the crystalline lattice $I_c$ can be described in 
+Fourier series with $C_j$ the complex Fourier coefficient related to the 
+crystalline wave vector $\vec{g_j}$ in the 2D Cartesian system $\mathcal{B}$.
+\begin{equation}
+\forall (x,y) \in 
+\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}C_je^{i(\vec{g_j}\cdot\vec{r})}
+\label{eq:crystal_Fourier_series}
+\end{equation}
+If the crystal is deformed, the relative position of the atoms will be slightly 
+modified from their original unstrained configuration. The local deformation is 
+breaking locally the perfect periodicity of the crystalline lattice. In the case 
+of small deformation (\cref{A_5}), $C_j$ can be allowed to vary in space in 
+\cref{eq:crystal_Fourier_series}. Representing $C_j$ with a phase $A_j$ and an 
+amplitude $P_j$, a pure displacement is only contributing in the phase 
+component. The strain information is therefore embedded in $P_{g_{j}}(\vec{r})$ 
+such that $P_{g_{j}}(\vec{r})=2\pi\Delta 
+\overrightarrow{g_{j}}(\vec{r})\cdot\vec{r}$ where $\Delta \overrightarrow{g_j}$ 
+represent the variation of the crystalline vector compared to its unstrained 
+state.
+\begin{equation}
+\begin{gathered}
+\forall (x,y) \in 
+\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}C_j(\vec{r})e^{i(\vec{g_j}\cdot\vec{r})} 
+\\
+\forall (x,y) \in 
+\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}A_je^{i(\vec{g_j}\cdot\vec{r})+iP_{g_{j}}(\vec{r})}
+\end{gathered}
+\label{eq:crystal_strain_Fourier_series}
+\end{equation}
+By applying GPA (\cref{T_2}) on \cref{eq:crystal_strain_Fourier_series}, 
+$P_{g_{j}}(\vec{r})$ can be extracted. Then by applying \cref{A_4}, the gradient 
+$\nabla$ of $P_{g_{j}}(\vec{r})$ can be approximate as follows
+\begin{equation}
+\nabla P_{g_{j}}(\vec{r}) = 2\pi [\nabla( \Delta 
+\overrightarrow{g_j}\cdot\vec{r}  )] \approx 2\pi\Delta 
+\overrightarrow{g_j(\vec{r})}
+\label{eq:Strain_GPA}
+\end{equation}
+\item \underline{Source}: \cite{Hytch1998}
+\item \underline{Ref by}: \cref{T_2}, \cref{IM_3}, \cref{IM_5}
+\end{itemize}
+\end{DD}
+
+\subsubsection{Instance Models} \label{sec_instance}    
+
+\renewcommand{\labelitemi}{$-$}
+
+\begin{IM}
+\label{IM_1}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Calculate the crystal reflections in 3D}}
+\normalfont
+\begin{itemize}
+\item \textbf{Input}: xxxxx
+\item \textbf{Output}:xxxx
+
+\item \textbf{Source}: xxx
+\item \textbf{Ref by}: xxxx
+\end{itemize}
+\end{IM}
+
+\begin{IM}
+\label{IM_2}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Project the crystal reflections in sampling base}}
+\normalfont
+\begin{itemize}
+\item \textbf{Input}: xxxxx
+\item \textbf{Output}:xxxx
+
+\item \textbf{Source}: xxx
+\item \textbf{Ref by}: xxxx
+\end{itemize}
+\end{IM}
+
+\begin{IM}
+\label{IM_3}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Simulate the STEM Moir{\'e} hologram imaging formation}}
+\normalfont
+\begin{itemize}
+\item \textbf{Input}: xxxxx
+\item \textbf{Output}:xxxx
+
+\item \textbf{Source}: xxx
+\item \textbf{Ref by}: xxxx
+\end{itemize}
+\end{IM}
+
+\begin{IM}
+\label{IM_4}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Mask and transform the Moire reflection into the crystalline one}}
+\normalfont
+\begin{itemize}
+\item \textbf{Input}: xxxxx
+\item \textbf{Output}:xxxx
+
+\item \textbf{Source}: xxx
+\item \textbf{Ref by}: xxxx
+\end{itemize}
+\end{IM}
+
+\begin{IM}
+\label{IM_5}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Reconstruct the oversample electron micrograph}}
+\normalfont
+\begin{itemize}
+\item \textbf{Input}: xxxxx
+\item \textbf{Output}:xxxx
+
+\item \textbf{Source}: xxx
+\item \textbf{Ref by}: xxxx
+\end{itemize}
+\end{IM}
+
+\end{document}
