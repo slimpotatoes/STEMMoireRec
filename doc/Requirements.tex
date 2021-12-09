@@ -6,6 +6,8 @@
 
 % Packages on template
 \usepackage{amsmath, mathtools}
+\newcommand\norm[1]{\lVert#1\rVert}
+\newcommand\normx[1]{\Vert#1\Vert}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
@@ -31,6 +33,8 @@
 \usepackage{indentfirst}
 \usepackage{cleveref}
 \usepackage{float}
+\usepackage{soul}
+\newcommand\Definition[1]{{\bfseries \ul{#1}}}
 \usepackage{xcolor}
 \definecolor{shadecolorIM}{RGB}{0,200,0}
 \definecolor{shadecolorT}{RGB}{0,191,255}
@@ -166,37 +170,22 @@ their units if applicable.
 \textbf{Symbol} & \textbf{Unit} & \textbf{Description}\\
 \midrule
 \endhead
-$\mathcal{B}_2$ & & 2D orthonormal base \\
-$\mathcal{B}_3$ & & 3D orthonormal base \\
-$\mathcal{C}$ & & Ceiling function \\
+$\mathcal{B}_2$ & & 2D orthonormal base  in real space \\
+$\mathcal{B}_{2^{*}}$ & & 2D orthonormal base in reciprocal space \\
+$\mathcal{B}_3$ & & 3D orthonormal base in real space \\
+$\mathcal{B}_{3^{*}}$ & & 3D orthonormal base in reciprocal space \\
+$\mathcal{B}_C$ && 3D crystal lattice base \\
+$\mathcal{B}_{C^{*}}$ && 3D reciprocal crystal lattice base \\
+$\mathcal{B}_S$ & & 3D orthonormal base in real space defined by the 2D orthonormal sampling scheme\\
+ $\mathcal{B}_{S}^{*}$  && 3D orthonormal base in reciprocal space defined by the 2D orthonormal sampling scheme \\
 $\delta$ & & Dirac delta function \\
-$\Delta \overrightarrow{g_{j}}^{M_{\text{exp}}}$ & \si{\per\nano\meter} & 
-Variation of
-the $j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$ \\
-$\Delta \overrightarrow{g_{j}}^{C_{\text{exp}}}$ & \si{\per\nano\meter} & 
-Variation of the $j^{\text{th}}$ crystalline wave vector of 
-$\mathit{SMH}_{\text{exp}}$\\
 $\mathcal{FT}$ & & Fourier transform \\
-$\Gamma$ & & Spatial frequency range \\
-$\overrightarrow{g_{j}}$ & \si{\per\nano\meter} & $j^{\text{th}}$ wave vector \\
-$g_{j_x}$ & \si{\per\nano\meter} & Component of the $j^{\text{th}}$ wave vector 
-along $\vec{u_x}$ \\
-$g_{j_y}$ & \si{\per\nano\meter} & Component of the $j^{\text{th}}$ wave vector 
-along $\vec{u_y}$ \\
-$\overrightarrow{g_{j}}^{C}$ & \si{\per\nano\meter} & $j^{th}$ crystalline wave 
-vector \\
-$\overrightarrow{g_{j}}^{C_{\text{ref}}}$ & \si{\per\nano\meter} & 
-$j^{\text{th}}$ crystalline wave vector of $I_{C_{\text{ref}}}$ \\
-$\overrightarrow{g_{j}}^{C_{\text{exp}}}$ & \si{\per\nano\meter} & 
-$j^{\text{th}}$ crystalline wave vector of $\mathit{SMH}_{\text{exp}}$\\
-$\overrightarrow{g_{j}}^{C_{\text{exp}}}_{\text{uns}}$ & \si{\per\nano\meter} & 
-$j^{\text{th}}$ crystalline wave vector of $\mathit{SMH}_{\text{exp}}$ at its 
-unstrained state\\
-$\overrightarrow{g_{j}}^{M_{\text{exp}}}$ & \si{\per\nano\meter} & 
-$j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$\\
-$\overrightarrow{g_{j}}^{M_{\text{exp}}}_{\text{uns}}$ & \si{\per\nano\meter} & 
-$j^{\text{th}}$ Moir{\'e} wave vector of $\mathit{SMH}_{\text{exp}}$ at its 
-unstrained state\\
+$\Gamma_{p^{X}}$ & & Spatial frequency range $[-1/2p, 1/2p]^{X}$\\
+$\overrightarrow{g_{hkl}}$ & \si{\per\nano\meter} & wave vector associated with $(hkl)$ Miller indices \\
+$\overrightarrow{g_{hkl}}^{C}$ & \si{\per\nano\meter} & crystalline wave 
+vector with $(hkl)$ Miller indices \\
+$\overrightarrow{g_{hkl}}^{M}$ & \si{\per\nano\meter} & Moir{\'e} wave vector of associated with $(hkl)$ Miller indices\\
+$G^{S}_{R}$ && List of resolved and allowed reflections \\
 $i$ & & Imaginary unit \\
 $I$ & & Intensity (or number of counts) \\
 $\mathbb{I}$ & & Sub-set of $\mathbb{R}$ representing the position of the pixels 
@@ -208,30 +197,23 @@ $I_{\mathit{SMH}_{\text{sim}}}$ & & 2D array representing the simulated SMH\\
 $M_j$ & & Mask function in Fourier space including the $j^{\text{th}}$ wave 
 vector\\
 $\mathbb{N}$ & & Set of natural numbers\\
-$\nabla$ & & Gradient operator\\
-$\nabla u$ & & Displacement gradient tensor\\
 $\vec{\nu}$ & \si{\per\nano\meter} & Vector position in Fourier space\\
 $O$ & & Origin of the coordinate system \\
 $p$ & \si{\nano\meter} & Pixel size of the experimental SMH 
 $I_{\mathit{SMH}_{\text{exp}}}$ \\
-$p_{\text{ref}}$ & \si{\nano\meter} & Pixel size of the reference image 
-$I_{C_{\text{ref}}}$ \\ 
-$P_{\overrightarrow{X}}$ & rad & 2D array representing 
-$2\pi\overrightarrow{X}\cdot\vec{r}$\\
 $\overrightarrow{q_{n_j,m_j}}$ & & Sampling vector $\vec{q} \in Q$ of couple 
 $(n_j,m_j)$\\
 $Q$ & & Set such that $Q=\{\forall (n,m) \in \mathbb{Z}^{2}, 
 \vec{q}=n\vec{u_x}+m\vec{u_y}\}$ \\
 $\vec{r}$ & \si{\nano\meter} & Vector position \\
+$R$ & \si{\nano\meter} & Resolution of the STEM probe \\
 $\mathbb{R}$ & & Set of real numbers \\
+$\sigma$ &&  Lattice centering \\
 $\mathit{SMH}_{\text{exp}}$ & & 2D array representing the experimental STEM 
 Moir{\'e} Hologram \\
 $\mathit{SMH}_{\text{sim}}$ & & 2D array representing the simulated STEM 
 Moir{\'e} Hologram \\
-$\vec{u_x}$ & & Unitary vector from base $\mathcal{B}$ \\
-$\vec{u_y}$ & & Unitary vector from base $\mathcal{B}$ \\
 $\wedge$ & & Mathematical symbol for "and"\\
-$\bigwedge$ & & Cross product operator\\
 $\mathbb{Z}$ & & Set of integer numbers\\
 \bottomrule
 \label{table_symbols_SRS}
@@ -404,7 +386,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \normalfont
 \begin{itemize}
 \item \underline{Equation}: \Cref{eq:crystal_1}
-\item \underline{Description}: In the 3D Cartesian coordinate system $\mathcal{B}_3$, the periodic arrangement of a crystalline material in reciprocal space is as follows with $\vec{a}$, $\vec{b}$ and $\vec{c}$ describing the crystal unit cell:
+\item \underline{Description}: In the 3D crystal lattice coordinate system $\mathcal{B}_C$, the periodic arrangement of a crystalline material in reciprocal space is as follows with $\vec{a}$, $\vec{b}$ and $\vec{c}$ describing the crystal unit cell:
 \begin{equation}
 \forall (u,v,w) \in \mathbb{Z}^{3}, \ \overrightarrow{OM}(u,v,w) = \vec{r_C} = u \vec{a} + v \vec{b} + w \vec{c} 
 \end{equation}
@@ -427,6 +409,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \vec{c}^{*} = \frac{\vec{a}\times \vec{b}}{\vec{c}\cdot(\vec{a}\times \vec{b})}
 \end{cases}
 \end{equation}
+leading the to following reciprocal lattice base $\mathcal{B}_{C^{*}}=(\vec{a}^{*}, \vec{b}^{*}, \vec{c}^{*})$ and the expression of the reciprocal lattice $\vec{OM}(h,k,l) = h\vec{a}^{*} + k\vec{b}^{*} + l\vec{c}^{*}$
 \item \underline{Source}: xxx
 \item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
 \end{itemize}
@@ -439,7 +422,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \begin{itemize}
 \item \underline{Equation}: \Cref{eq:strain_2}
 \item \underline{Description}: Bla
-\item \underline{Source}: \cite{Hytch1998,Rouviere2005}
+\item \underline{Source}: Our paper
 \item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
 \end{itemize}
 \end{T}
@@ -450,54 +433,97 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 
 \begin{DD}
 \label{DD_1}
-\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Variation of the 
-crystalline wave vector $\Delta \overrightarrow{g_j}$ (strain in crystal 
-lattice)}}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Coordinate of the atoms $ \overrightarrow{OM}(x,y,z)$ in the $\mathcal{B}_3$ base, \\ aligning $\vec{u_z}$ to $\vec{c}$ and using $\vec{u_y}$ in the $(\vec{b}, \vec{c})$ plane}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}: \Cref{eq:Strain_GPA}
-\item \underline{Description}: For the purpose of the STEM Moir{\'e} GPA, only 
-mono-crystalline samples are analysed (\cref{A_7}). In the case of a perfect 
-periodic atomic arrangement, the crystalline lattice $I_c$ can be described in 
-Fourier series with $C_j$ the complex Fourier coefficient related to the 
-crystalline wave vector $\vec{g_j}$ in the 2D Cartesian system $\mathcal{B}$.
-\begin{equation}
-\forall (x,y) \in 
-\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}C_je^{i(\vec{g_j}\cdot\vec{r})}
-\label{eq:crystal_Fourier_series}
-\end{equation}
-If the crystal is deformed, the relative position of the atoms will be slightly 
-modified from their original unstrained configuration. The local deformation is 
-breaking locally the perfect periodicity of the crystalline lattice. In the case 
-of small deformation (\cref{A_5}), $C_j$ can be allowed to vary in space in 
-\cref{eq:crystal_Fourier_series}. Representing $C_j$ with a phase $A_j$ and an 
-amplitude $P_j$, a pure displacement is only contributing in the phase 
-component. The strain information is therefore embedded in $P_{g_{j}}(\vec{r})$ 
-such that $P_{g_{j}}(\vec{r})=2\pi\Delta 
-\overrightarrow{g_{j}}(\vec{r})\cdot\vec{r}$ where $\Delta \overrightarrow{g_j}$ 
-represent the variation of the crystalline vector compared to its unstrained 
-state.
-\begin{equation}
-\begin{gathered}
-\forall (x,y) \in 
-\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}C_j(\vec{r})e^{i(\vec{g_j}\cdot\vec{r})} 
-\\
-\forall (x,y) \in 
-\mathbb{R}^{2},I_C(\vec{r})=\sum_{j=-\infty}^{j=+\infty}A_je^{i(\vec{g_j}\cdot\vec{r})+iP_{g_{j}}(\vec{r})}
-\end{gathered}
-\label{eq:crystal_strain_Fourier_series}
-\end{equation}
-By applying GPA (\cref{T_2}) on \cref{eq:crystal_strain_Fourier_series}, 
-$P_{g_{j}}(\vec{r})$ can be extracted. Then by applying \cref{A_4}, the gradient 
-$\nabla$ of $P_{g_{j}}(\vec{r})$ can be approximate as follows
-\begin{equation}
-\nabla P_{g_{j}}(\vec{r}) = 2\pi [\nabla( \Delta 
-\overrightarrow{g_j}\cdot\vec{r}  )] \approx 2\pi\Delta 
-\overrightarrow{g_j(\vec{r})}
-\label{eq:Strain_GPA}
-\end{equation}
-\item \underline{Source}: \cite{Hytch1998}
-\item \underline{Ref by}: \cref{T_2}, \cref{IM_3}, \cref{IM_5}
+\item \underline{Equation}:  $ \overrightarrow{OM} = 
+\begin{bmatrix}
+ x \\
+y \\
+z 
+\end{bmatrix} =  \mathcal{M_{\mathcal{B}_C\rightarrow \mathcal{B}_3}} 
+\begin{bmatrix}
+u \\
+v \\
+w 
+\end{bmatrix} \\ 
+\text{with} \ \mathcal{M_{\mathcal{B}_C\rightarrow \mathcal{B}_3}}  = 
+\begin{bmatrix}
+a\sin{\beta}\sin{\gamma^{*}} & 0 & 0 \\
+a\sin{\beta}\cos{\gamma^{*}} & b\sin{\beta} & 0 \\
+a\cos{\beta} & b\cos{\beta} & c
+\end{bmatrix} \ \text{and} \ 
+\begin{cases}
+\cos{\gamma^{*}} =  \frac{\cos{\alpha}\cos{\beta} - cos{\gamma}}{\sin{\alpha}\sin{\beta}} \\
+\sin{\gamma^{*}} = 1 - (\cos{\gamma^{*}})^{2}
+\end{cases}$
+\item \underline{Description}: 
+\item \underline{Source}: Regarder dans le folder
+\item \underline{Ref by}: 
+\end{itemize}
+\end{DD}
+
+\begin{DD}
+\label{DD_2}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Coordinate of the reflection $ \overrightarrow{OM}(\lambda,\mu,\nu)$ in the $\mathcal{B}_3$ base, \\ aligning $\vec{u_x}$ to $\vec{a}^{*}$ and using $\vec{u_y}$ in the $(\vec{a}^{*}, \vec{b}^{*})$ plane}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}:  $ \overrightarrow{OM} = 
+\begin{bmatrix}
+\lambda \\
+\mu \\
+\nu 
+\end{bmatrix} =  \mathcal{M_{\mathcal{B}_{C^{*}}\rightarrow \mathcal{B}_3}} 
+\begin{bmatrix}
+h \\
+k \\
+l 
+\end{bmatrix} \\ 
+\text{with} \ \mathcal{M_{\mathcal{B}_{C^{*}}\rightarrow \mathcal{B}_3}}  = 
+(\mathcal{M_{\mathcal{B}_{C}\rightarrow \mathcal{B}_3}}^{T})^{-1} $
+\item \underline{Description}: 
+\item \underline{Source}: Regarder dans le folder
+\item \underline{Ref by}: 
+\end{itemize}
+\end{DD}
+
+\begin{DD}
+\label{DD_3}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Type of crystal}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}:  $
+\begin{cases}
+(a=b=c) \wedge (\alpha=\beta=\gamma = \ang{90}) \rightarrow \text{cubic}\\
+(a=b=c) \wedge (\alpha=\beta=\ang{90} \ \gamma = \ang{120}) \rightarrow \text{hexagonal} \\
+(a=b\neq c) \wedge (\alpha=\beta=\gamma = \ang{90}) \rightarrow \text{tetragonal}\\
+(a\neq b\neq c) \wedge (\alpha=\beta=\gamma = \ang{90}) \rightarrow \text{orthorombic}\\
+(a\neq b\neq c) \wedge (\alpha=\beta=\ang{90} \ \gamma \neq \ang{90}) \rightarrow \text{monoclinic}\\
+(a\neq b\neq c) \wedge (\alpha\neq\beta\neq\gamma)  \rightarrow \text{triclinic}
+\end{cases}$ \\
+Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered 
+\item \underline{Description}: 
+\item \underline{Source}: Regarder dans le folder
+\item \underline{Ref by}: 
+\end{itemize}
+\end{DD}
+
+\begin{DD}
+\label{DD_4}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{Simplified reflection $(h,k,l)$ selection rules $\Omega$ }}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}:  $
+\begin{cases}
+\text{Primitive} \rightarrow (h,k,l) \in \mathbb{Z}^{3} \\
+\text{Body-centered} \rightarrow h+k+l=2n+1 \ \text{with} \ n \in \mathbb{Z} \\
+\text{Face-centered} \rightarrow h,k,l \  \text{all odd or all even} \\
+\text{Face-centered diamond} \rightarrow h,k,l \ \text{all odd or} \  h,k,l \ \text{all even and} \ h+k+l=4n \ \text{with} \ n \in \mathbb{Z} \\
+\text{Hexagonal closed packed} \rightarrow l  \ \text{even  or} \  h+2k\neq 3n \ \text{with} n \in \mathbb{Z}\\
+\end{cases}$
+\item \underline{Description}: Simplified selection rules for existence of the $(h,k,l)$ reflection for some crystal structure $S$. The only way to be generic is to consider the lattice centering (P, I, A, B, C, F) with the crystal structure to generate the selection rule or look at the group space directly.
+\item \underline{Source}: Regarder dans le folder
+\item \underline{Ref by}: 
 \end{itemize}
 \end{DD}
 
@@ -507,12 +533,12 @@ $\nabla$ of $P_{g_{j}}(\vec{r})$ can be approximate as follows
 
 \begin{IM}
 \label{IM_1}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Calculate the crystal reflections in 3D}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{List the allowed crystal reflections resolved by the STEM probe}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: xxxxx
-\item \textbf{Output}:xxxx
-
+\item \textbf{Input}: $a, b, c, \alpha, \beta, \gamma, S, R$
+\item \textbf{Output}:$G^{\sigma}_{R}$
+\item \textbf{Description} : For all the resolved reflection ($\norm{\overrightarrow{g_{hkl}}}_{\mathcal{B}_{3}^{*}} < R$), regroup all the allowed reflections ($S \in \Omega$) in $G^{\sigma}_{R}$ expressed in the base $\mathcal{B}_{3}^{*}$.
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
@@ -520,12 +546,24 @@ $\nabla$ of $P_{g_{j}}(\vec{r})$ can be approximate as follows
 
 \begin{IM}
 \label{IM_2}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Project the crystal reflections in sampling base}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Project the crystal reflections in the 3D sampling base $\mathcal{B}_{{S}^{*}}$}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: xxxxx
-\item \textbf{Output}:xxxx
-
+\item \textbf{Input}: $G^{\sigma}_{R}$,  $\mathcal{B}_{S}=(\vec{s_x}, \vec{s_y}, \vec{s_z})$
+\item \textbf{Output}:$G^{\sigma}_{R}$
+\item \textbf{Description} : For all the reflections in $G^{\sigma}_{R}$, apply the base transformation from $\mathcal{B}_{{3}^{*}}$ to $\mathcal{B}_{{S}^{*}}$ using the transformation matrix $\mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}}$. 
+\begin{equation}
+g_{hkl} = \begin{bmatrix}
+\lambda_s \\
+\mu_s \\
+\nu_s 
+\end{bmatrix} =  \mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}} 
+\begin{bmatrix}
+\lambda \\
+\mu \\
+\nu 
+\end{bmatrix}
+\end{equation}
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
