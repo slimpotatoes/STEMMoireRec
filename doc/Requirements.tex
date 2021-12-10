@@ -185,33 +185,31 @@ $\overrightarrow{g_{hkl}}$ & \si{\per\nano\meter} & wave vector associated with 
 $\overrightarrow{g_{hkl}}^{C}$ & \si{\per\nano\meter} & crystalline wave 
 vector with $(hkl)$ Miller indices \\
 $\overrightarrow{g_{hkl}}^{M}$ & \si{\per\nano\meter} & Moir{\'e} wave vector of associated with $(hkl)$ Miller indices\\
-$G^{S}_{R}$ && List of resolved and allowed reflections \\
+$(G^{\sigma}_{R})^{C}_{X}$ && List of resolved and allowed crystalline reflections in base X\\
+$(G^{\sigma}_{R})^{M}_{X}$ && List of resolved and allowed Moir{\'e} reflections in base X\\
 $i$ & & Imaginary unit \\
 $I$ & & Intensity (or number of counts) \\
 $\mathbb{I}$ & & Sub-set of $\mathbb{R}$ representing the position of the pixels 
 in an image\\
 $I_{C_{\text{ref}}}$ & & 2D array representing the reference crystal structure 
 \\
-$I_{\mathit{SMH}_{\text{exp}}}$ & & 2D array representing the experimental SMH\\
-$I_{\mathit{SMH}_{\text{sim}}}$ & & 2D array representing the simulated SMH\\
+$I_{\mathit{SMH}}$ & & 2D array representing the experimental SMH\\
 $M_j$ & & Mask function in Fourier space including the $j^{\text{th}}$ wave 
 vector\\
 $\mathbb{N}$ & & Set of natural numbers\\
-$\vec{\nu}$ & \si{\per\nano\meter} & Vector position in Fourier space\\
+$\vec{\omega}$ & \si{\per\nano\meter} & Vector position in Fourier space\\
 $O$ & & Origin of the coordinate system \\
 $p$ & \si{\nano\meter} & Pixel size of the experimental SMH 
 $I_{\mathit{SMH}_{\text{exp}}}$ \\
-$\overrightarrow{q_{n_j,m_j}}$ & & Sampling vector $\vec{q} \in Q$ of couple 
-$(n_j,m_j)$\\
+$\overrightarrow{q_{n,m}}$ & & Sampling vector $\vec{q} \in Q$ of couple 
+$(n,m) \in \mathbb{Z}^{2}$\\
 $Q$ & & Set such that $Q=\{\forall (n,m) \in \mathbb{Z}^{2}, 
 \vec{q}=n\vec{u_x}+m\vec{u_y}\}$ \\
 $\vec{r}$ & \si{\nano\meter} & Vector position \\
 $R$ & \si{\nano\meter} & Resolution of the STEM probe \\
 $\mathbb{R}$ & & Set of real numbers \\
 $\sigma$ &&  Lattice centering \\
-$\mathit{SMH}_{\text{exp}}$ & & 2D array representing the experimental STEM 
-Moir{\'e} Hologram \\
-$\mathit{SMH}_{\text{sim}}$ & & 2D array representing the simulated STEM 
+$\mathit{SMH}$ & & 2D array representing the experimental STEM 
 Moir{\'e} Hologram \\
 $\wedge$ & & Mathematical symbol for "and"\\
 $\mathbb{Z}$ & & Set of integer numbers\\
@@ -376,7 +374,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \label{eq:sampling_simplified}
 \end{equation}
 \item \underline{Source}: \cite{Gonzalez_1992}
-\item \underline{Ref by}: \cref{DD_2}, \cref{IM_1}, \cref{IM_4}
+\item \underline{Ref by}: \cref{DD_2}, xxx
 \end{itemize}
 \end{T}
 
@@ -389,9 +387,10 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \item \underline{Description}: In the 3D crystal lattice coordinate system $\mathcal{B}_C$, the periodic arrangement of a crystalline material in reciprocal space is as follows with $\vec{a}$, $\vec{b}$ and $\vec{c}$ describing the crystal unit cell:
 \begin{equation}
 \forall (u,v,w) \in \mathbb{Z}^{3}, \ \overrightarrow{OM}(u,v,w) = \vec{r_C} = u \vec{a} + v \vec{b} + w \vec{c} 
+\label{eq:crystal_1}
 \end{equation}
 \item \underline{Source}: xxx
-\item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
+\item \underline{Ref by}: xxx
 \end{itemize}
 \end{T}
 
@@ -400,7 +399,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \noindent\colorbox{shadecolorT}{\normalfont \textbf{Reciprocal crystal lattice}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}: \Cref{eq:reciprocal_crystal_1}
+\item \underline{Equation}: \Cref{eq:rec_crystal_1}
 \item \underline{Description}: Reciprocal crystal lattice
 \begin{equation}
 \begin{cases}
@@ -408,6 +407,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \vec{b}^{*} = \frac{\vec{c}\times \vec{a}}{\vec{b}\cdot(\vec{c}\times \vec{a})} \\
 \vec{c}^{*} = \frac{\vec{a}\times \vec{b}}{\vec{c}\cdot(\vec{a}\times \vec{b})}
 \end{cases}
+\label{eq:rec_crystal_1}
 \end{equation}
 leading the to following reciprocal lattice base $\mathcal{B}_{C^{*}}=(\vec{a}^{*}, \vec{b}^{*}, \vec{c}^{*})$ and the expression of the reciprocal lattice $\vec{OM}(h,k,l) = h\vec{a}^{*} + k\vec{b}^{*} + l\vec{c}^{*}$
 \item \underline{Source}: xxx
@@ -527,6 +527,27 @@ Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered
 \end{itemize}
 \end{DD}
 
+\begin{DD}
+\label{DD_5}
+\noindent\colorbox{shadecolorDD}{\normalfont \textbf{STEM Moir{\'e} hologram}}
+\normalfont
+\begin{itemize}
+\item \underline{Equation}:  xxx
+\item \underline{Description}: The STEM electron micrograph is a 2D array corresponding to the 2D sampling of the crystal lattice $I_{C}$ with the STEM probe $P$
+\begin{equation}
+I_{STEM}(\vec{r}) = \sum_{q\in 
+Q} I_C(\vec{r}) \ast P(\vec{r}) \times \delta(\vec{r}-p\vec{q}) 
+\end{equation}
+Using the Fourier series decomposition and assuming that the probe P acts as a simple passband resolving crystalline lattices up to the limit of resolution,
+\begin{equation}
+I_{STEM}(\vec{r}) = \sum_{q\in 
+Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow{r})} e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow{r})}(\vec{r}-\frac{\vec{q}}{p}) 
+\end{equation}
+\item \underline{Source}: Regarder dans le folder
+\item \underline{Ref by}: 
+\end{itemize}
+\end{DD}
+
 \subsubsection{Instance Models} \label{sec_instance}    
 
 \renewcommand{\labelitemi}{$-$}
@@ -537,8 +558,8 @@ Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered
 \normalfont
 \begin{itemize}
 \item \textbf{Input}: $a, b, c, \alpha, \beta, \gamma, S, R$
-\item \textbf{Output}:$G^{\sigma}_{R}$
-\item \textbf{Description} : For all the resolved reflection ($\norm{\overrightarrow{g_{hkl}}}_{\mathcal{B}_{3}^{*}} < R$), regroup all the allowed reflections ($S \in \Omega$) in $G^{\sigma}_{R}$ expressed in the base $\mathcal{B}_{3}^{*}$.
+\item \textbf{Output}:$(G^{\sigma}_{R})^{C}_{\mathcal{B}_{3}^{*}}$
+\item \textbf{Description} : For all the resolved reflection ($\norm{\overrightarrow{g_{hkl}}^{C}}_{\mathcal{B}_{3}^{*}} < R$), regroup all the allowed reflections ($S \in \Omega$) in $G^{\sigma}_{R}$ expressed in the base $\mathcal{B}_{3}^{*}$.
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
@@ -546,24 +567,25 @@ Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered
 
 \begin{IM}
 \label{IM_2}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Project the crystal reflections in the 3D sampling base $\mathcal{B}_{{S}^{*}}$}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Project the crystal reflections in the 3D sampling base $\mathcal{B}_{{S}^{*}}$ and keep the reflection in the sampling plane defined by  $\mathcal{B}_{{\Gamma}^{*}}$}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: $G^{\sigma}_{R}$,  $\mathcal{B}_{S}=(\vec{s_x}, \vec{s_y}, \vec{s_z})$
-\item \textbf{Output}:$G^{\sigma}_{R}$
-\item \textbf{Description} : For all the reflections in $G^{\sigma}_{R}$, apply the base transformation from $\mathcal{B}_{{3}^{*}}$ to $\mathcal{B}_{{S}^{*}}$ using the transformation matrix $\mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}}$. 
+\item \textbf{Input}: $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{3}^{*}}$,  $\mathcal{B}_{S}=(\vec{s_x}, \vec{s_y}, \vec{s_z})$ with $\mathcal{B}_{\Gamma}=(\vec{s_x}, \vec{s_y})$
+\item \textbf{Output}:$(G^{\sigma}_{R})^{C}_{\mathcal{B}_{\Gamma}^{*}}$
+\item \textbf{Description} : For all the reflections in $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{3}^{*}}$, apply the base transformation from $\mathcal{B}_{{3}^{*}}$ to $\mathcal{B}_{{S}^{*}}$ using the transformation matrix $\mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}}$. 
 \begin{equation}
-g_{hkl} = \begin{bmatrix}
+(g_{hkl}^{C})_{\mathcal{B}_{S}^{*}} = \begin{bmatrix}
 \lambda_s \\
 \mu_s \\
 \nu_s 
 \end{bmatrix} =  \mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}} 
-\begin{bmatrix}
+(g_{hkl}^{C})_{\mathcal{B}_{S}^{*}} =  \mathcal{M}_{\mathcal{B}_{{3}^{*}}\rightarrow \mathcal{B}_{{S}^{*}}} \begin{bmatrix}
 \lambda \\
 \mu \\
 \nu 
 \end{bmatrix}
 \end{equation}
+All the reflections $(g_{hkl}^{C})_{\mathcal{B}_{S}^{*}}$ with $\nu_s=0$ are stored in  $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{\Gamma}^{*}}$
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
@@ -571,12 +593,26 @@ g_{hkl} = \begin{bmatrix}
 
 \begin{IM}
 \label{IM_3}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Simulate the STEM Moir{\'e} hologram imaging formation}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Spatial frequency shift from Moir{\'e} sampling}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: xxxxx
-\item \textbf{Output}:xxxx
-
+\item \textbf{Input}:$(G^{\sigma}_{R})^{C}_{\mathcal{B}_{\Gamma}^{*}}$, $p$
+\item \textbf{Output}:$(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, $(Q^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$
+\item \textbf{Description} : For all reflection in $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{\Gamma}^{*}}$, the Moir{\'e} shift is described using the following equation
+\begin{equation*}
+\begin{gathered}
+(g_{hkl}^{M})_{\mathcal{B}_{\Gamma}^{*}} = 
+\begin{bmatrix}
+\lambda_{s}^{M} \\
+\mu_{s}^{M} \\ 
+\end{bmatrix} =
+ (g_{hkl}^{C})_{\mathcal{B}_{\Gamma}^{*}}  +\frac{1}{p} \overrightarrow{q_{n_{hkl},m_{hkl}}}  \\
+\text{with }\begin{cases}
+n_{hkl} = \lfloor (p\lambda_s - \frac{1}{2}) \rfloor \\
+m_{hkl} = \lfloor (p\mu_s - \frac{1}{2}) \rfloor 
+\end{cases}
+\end{gathered}
+\end{equation*}
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
@@ -584,12 +620,27 @@ g_{hkl} = \begin{bmatrix}
 
 \begin{IM}
 \label{IM_4}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Mask and transform the Moire reflection into the crystalline one}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Mask all the resolved Moir{\'e} reflections from the SMH individually}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: xxxxx
-\item \textbf{Output}:xxxx
-
+\item \textbf{Input}: $I_{SMH}$, $(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$,
+\item \textbf{Output}:$\Psi_{SMH}$
+\item \textbf{Description}: For all reflection in $(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, define a mask around the reflection in Fourier space to isolate it from each other
+\begin{equation*}
+\begin{cases}
+\forall \vec{\omega} = (\lambda, \mu) \in [\lambda_{s}^{M}-\beta, \lambda_{s}^{M}+\beta]\times [\mu_{s}^{M}-\beta, \mu_{s}^{M}+\beta], \Upsilon_{hkl}(\vec{\omega}) = 1   \\
+\text{else } \Upsilon_{hkl}(\vec{\omega}) = 0
+\end{cases}
+\end{equation*}
+The mask is then applied on the Fourier transform of the  STEM Moir{\'e} hologram
+\begin{equation*}
+\begin{gathered}
+I_{SMH}(\vec{r})= \sum_{hkl}A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{M}} \cdot \overrightarrow{r})} \\
+\tilde{I}_{SMH}(\vec{\omega}) = \mathcal{FT}[I_{SMG}(\vec{r})](\vec{\omega})  = \sum_{hkl}A_{hkl}\delta{\overrightarrow{(g_{hkl}^{M}}} -\overrightarrow{\omega}) \\
+\tilde{I}_{hkl}^{\Upsilon}(\vec{\omega})=\Upsilon_{hkl}(\vec{\omega}) \times  \tilde{I}_{SMH}(\vec{\omega})= A_{hkl}\delta{\overrightarrow{(g_{hkl}^{M}}} -\overrightarrow{\omega})
+\end{gathered}
+\end{equation*}
+$\tilde{I}_{hkl}^{\Upsilon}(\vec{\omega})$ is regrouped for all reflections in $\Psi$.
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
@@ -597,15 +648,49 @@ g_{hkl} = \begin{bmatrix}
 
 \begin{IM}
 \label{IM_5}
-\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Reconstruct the oversample electron micrograph}}
+\noindent\colorbox{shadecolorIM}{\normalfont \textbf{Apply the Moir{\'e} correction on each individual reflection and reconstruct the oversample electron micrograph}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: xxxxx
-\item \textbf{Output}:xxxx
-
+\item \textbf{Input}: $(Q^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, $\Psi_{SMH}$
+\item \textbf{Output}:$I^{\text{rec}}$
+\item \textbf{Description}: For each 2D array from $\Psi_{SMH}$, the opposite of the Moir{\'e} shift is applied using the following operation
+\begin{equation*}
+\begin{gathered}
+\tilde{I}_{hkl}^{\text{rec}}(\vec{\omega}) = \tilde{I}_{hkl}^{\Upsilon}(\vec{\omega}) \ast \delta(\overrightarrow{\omega} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}}) \\
+\tilde{I}_{hkl}^{\text{rec}}(\vec{\omega}) = A_{hkl}\delta(\overrightarrow{g_{hkl}^{M}} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}} -\overrightarrow{\omega})
+\end{gathered}
+\end{equation*}
+The reconstruction of the image is performed by summing all the individual Moir{\'e} shifted 2D arrays and taking the inverse Fourier transform
+\begin{equation*}
+\begin{gathered}
+I^{\text{rec}}(\vec{r}) = \mathcal{FT}^{-1}[\sum_{hkl} \tilde{I}_{hkl}^{\text{rec}}(\vec{\omega})]
+\end{gathered}
+\end{equation*}
 \item \textbf{Source}: xxx
 \item \textbf{Ref by}: xxxx
 \end{itemize}
 \end{IM}
+
+\section{Requirements}
+
+This section provides the functional requirements, the tasks that the software 
+is expected to complete, and the nonfunctional requirements, the qualities that 
+the software is expected to exhibit.
+
+\subsection{Functional Requirements}
+
+\begin{R}
+\label{R_1}
+\normalfont Provide an environment for the user to input 
+$I_{\mathit{SMH}_{\text{exp}}}$, $p,  I_{C_{\text{ref}}}$ and $p_{\text{ref}}$ 
+(\cref{IM_1}).
+\end{R}
+\begin{R}
+\label{R_2}
+\normalfont Verify the format of the inputs $I_{\mathit{SMH}_{\text{exp}}}$ and 
+$I_{C_{\text{ref}}}$ to be 2D arrays composed of real numbers and verify $p$ to 
+be a real number strictly positive (\cref{IM_1}).
+\end{R}
+
 
 \end{document}
