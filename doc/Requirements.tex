@@ -194,17 +194,21 @@ in an image\\
 $I_{C_{\text{ref}}}$ & & 2D array representing the reference crystal structure 
 \\
 $I_{\mathit{SMH}}$ & & 2D array representing the experimental SMH\\
+$I_{\text{rec}}$ & & 2D array representing the reconstructed micrograph using the Moir{\'e} recovery \\
 $M_j$ & & Mask function in Fourier space including the $j^{\text{th}}$ wave 
 vector\\
 $\mathbb{N}$ & & Set of natural numbers\\
 $\vec{\omega}$ & \si{\per\nano\meter} & Vector position in Fourier space\\
 $O$ & & Origin of the coordinate system \\
-$p$ & \si{\nano\meter} & Pixel size of the experimental SMH 
+$p$ & \si{\nano\meter} & Pixel spacing of the experimental SMH 
 $I_{\mathit{SMH}_{\text{exp}}}$ \\
+$p_{\text{rec}}$ & \si{\nano\meter} & Pixel spacing of the reconstructed micrograph
+$I_{\text{rec}}$ \\
 $\overrightarrow{q_{n,m}}$ & & Sampling vector $\vec{q} \in Q$ of couple 
 $(n,m) \in \mathbb{Z}^{2}$\\
 $Q$ & & Set such that $Q=\{\forall (n,m) \in \mathbb{Z}^{2}, 
 \vec{q}=n\vec{u_x}+m\vec{u_y}\}$ \\
+$Q_{\Gamma_{p^{X}}}$ & & Subset of $Q$ including only the sampling vector $\overrightarrow{q_{n,m}}$ shifting the crystalline wave vectors $\overrightarrow{g_{hkl}}^{C}$ into the $\Gamma_{p^{X}}$ spatial frequency range \\
 $\vec{r}$ & \si{\nano\meter} & Vector position \\
 $R$ & \si{\nano\meter} & Resolution of the STEM probe \\
 $\mathbb{R}$ & & Set of real numbers \\
@@ -328,11 +332,14 @@ $g_{j_{\text{lim}}}$.
 \label{A_1}
 \end{A}
 \begin{A}
-\normalfont Uniform orthogonal and uniform samplers are considered.
+\normalfont Only uniform orthogonal and uniform samplers are considered.
 \label{A_2}
 \end{A}
 \begin{A}
-\normalfont Blabla
+\normalfont The probe size is smaller than the area covered by one pixel. 
+Therefore, information gathered on one pixel is only provided by the area 
+covered by the pixel (no blurring) and \cref{A_1} is the only limiting factor 
+regarding resolution.
 \label{A_3}
 \end{A}
 \begin{A}
@@ -352,8 +359,8 @@ $g_{j_{\text{lim}}}$.
 \item \underline{Description}: In the 2D Cartesian coordinate system 
 $\mathcal{B}_2$, the scanning grid can be seen as sampler $S$ sampling a 
 continuous function $f$. In the context of the \progname{} project, the sampler 
-is set to be periodic with the same periodicity $p$ (called pixel size) in both 
-$x$ and $y$ directions (2D Dirac comb). The resulting sampled version $f_S$ of 
+is set to be periodic with the same periodicity $p$ along both 
+$\overrightarrow{u_x}$ and $\overrightarrow{u_y}$ directions (2D Dirac comb). The resulting sampled version $f_S$ of 
 $f$ can be represented as the following with $\delta$ representing the Dirac 
 function:
 \begin{equation}
@@ -374,7 +381,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \label{eq:sampling_simplified}
 \end{equation}
 \item \underline{Source}: \cite{Gonzalez_1992}
-\item \underline{Ref by}: \cref{DD_2}, xxx
+\item \underline{Ref by}: \cref{DD_5}
 \end{itemize}
 \end{T}
 
@@ -390,7 +397,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \label{eq:crystal_1}
 \end{equation}
 \item \underline{Source}: xxx
-\item \underline{Ref by}: xxx
+\item \underline{Ref by}: \cref{DD_1}, \cref{DD_3}
 \end{itemize}
 \end{T}
 
@@ -411,7 +418,7 @@ Q}\delta(\vec{r}-p\vec{q}) f(\vec{r})
 \end{equation}
 leading the to following reciprocal lattice base $\mathcal{B}_{C^{*}}=(\vec{a}^{*}, \vec{b}^{*}, \vec{c}^{*})$ and the expression of the reciprocal lattice $\vec{OM}(h,k,l) = h\vec{a}^{*} + k\vec{b}^{*} + l\vec{c}^{*}$
 \item \underline{Source}: xxx
-\item \underline{Ref by}: \cref{DD_3}, \cref{IM_3}, \cref{IM_5}
+\item \underline{Ref by}: \cref{DD_2}, \cref{DD_4}
 \end{itemize}
 \end{T}
 
@@ -436,7 +443,11 @@ leading the to following reciprocal lattice base $\mathcal{B}_{C^{*}}=(\vec{a}^{
 \noindent\colorbox{shadecolorDD}{\normalfont \textbf{Coordinate of the atoms $ \overrightarrow{OM}(x,y,z)$ in the $\mathcal{B}_3$ base, \\ aligning $\vec{u_z}$ to $\vec{c}$ and using $\vec{u_y}$ in the $(\vec{b}, \vec{c})$ plane}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}:  $ \overrightarrow{OM} = 
+\item \underline{Equation}:  \Cref{eq:change_base_crystal_base_unif}
+\item \underline{Description}: 
+\begin{equation}
+\begin{gathered}
+\overrightarrow{OM} = 
 \begin{bmatrix}
  x \\
 y \\
@@ -456,10 +467,12 @@ a\cos{\beta} & b\cos{\beta} & c
 \begin{cases}
 \cos{\gamma^{*}} =  \frac{\cos{\alpha}\cos{\beta} - cos{\gamma}}{\sin{\alpha}\sin{\beta}} \\
 \sin{\gamma^{*}} = 1 - (\cos{\gamma^{*}})^{2}
-\end{cases}$
-\item \underline{Description}: 
+\end{cases}
+\end{gathered}
+\label{eq:change_base_crystal_base_unif}
+\end{equation}
 \item \underline{Source}: Regarder dans le folder
-\item \underline{Ref by}: 
+\item \underline{Ref by}: \cref{T_2}
 \end{itemize}
 \end{DD}
 
@@ -468,7 +481,11 @@ a\cos{\beta} & b\cos{\beta} & c
 \noindent\colorbox{shadecolorDD}{\normalfont \textbf{Coordinate of the reflection $ \overrightarrow{OM}(\lambda,\mu,\nu)$ in the $\mathcal{B}_3$ base, \\ aligning $\vec{u_x}$ to $\vec{a}^{*}$ and using $\vec{u_y}$ in the $(\vec{a}^{*}, \vec{b}^{*})$ plane}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}:  $ \overrightarrow{OM} = 
+\item \underline{Equation}: \Cref{eq:change_base_reciprocal_base_unif}
+\item \underline{Description}: 
+\begin{equation}
+\begin{gathered}
+ \overrightarrow{OM} = 
 \begin{bmatrix}
 \lambda \\
 \mu \\
@@ -480,8 +497,11 @@ k \\
 l 
 \end{bmatrix} \\ 
 \text{with} \ \mathcal{M_{\mathcal{B}_{C^{*}}\rightarrow \mathcal{B}_3}}  = 
-(\mathcal{M_{\mathcal{B}_{C}\rightarrow \mathcal{B}_3}}^{T})^{-1} $
-\item \underline{Description}: 
+(\mathcal{M_{\mathcal{B}_{C}\rightarrow \mathcal{B}_3}}^{T})^{-1} 
+\end{gathered}
+\label{eq:change_base_reciprocal_base_unif}
+\end{equation} '
+
 \item \underline{Source}: Regarder dans le folder
 \item \underline{Ref by}: 
 \end{itemize}
@@ -492,7 +512,9 @@ l
 \noindent\colorbox{shadecolorDD}{\normalfont \textbf{Type of crystal}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}:  $
+\item \underline{Equation}:  \Cref{eq:crystal_type}
+\item \underline{Description}: 
+\begin{equation}
 \begin{cases}
 (a=b=c) \wedge (\alpha=\beta=\gamma = \ang{90}) \rightarrow \text{cubic}\\
 (a=b=c) \wedge (\alpha=\beta=\ang{90} \ \gamma = \ang{120}) \rightarrow \text{hexagonal} \\
@@ -500,11 +522,13 @@ l
 (a\neq b\neq c) \wedge (\alpha=\beta=\gamma = \ang{90}) \rightarrow \text{orthorombic}\\
 (a\neq b\neq c) \wedge (\alpha=\beta=\ang{90} \ \gamma \neq \ang{90}) \rightarrow \text{monoclinic}\\
 (a\neq b\neq c) \wedge (\alpha\neq\beta\neq\gamma)  \rightarrow \text{triclinic}
-\end{cases}$ \\
+\end{cases}
+\label{eq:crystal_type}
+\end{equation}
+
 Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered 
-\item \underline{Description}: 
 \item \underline{Source}: Regarder dans le folder
-\item \underline{Ref by}: 
+\item \underline{Ref by}: \cref{T_2}
 \end{itemize}
 \end{DD}
 
@@ -513,17 +537,21 @@ Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered
 \noindent\colorbox{shadecolorDD}{\normalfont \textbf{Simplified reflection $(h,k,l)$ selection rules $\Omega$ }}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}:  $
-\begin{cases}
+\item \underline{Equation}: \Cref{eq:refelection_existence}
+\item \underline{Description}: Simplified selection rules for existence of the $(h,k,l)$ reflection for some crystal structure $S$. 
+ \begin{equation}
+ \begin{cases}
 \text{Primitive} \rightarrow (h,k,l) \in \mathbb{Z}^{3} \\
 \text{Body-centered} \rightarrow h+k+l=2n+1 \ \text{with} \ n \in \mathbb{Z} \\
 \text{Face-centered} \rightarrow h,k,l \  \text{all odd or all even} \\
 \text{Face-centered diamond} \rightarrow h,k,l \ \text{all odd or} \  h,k,l \ \text{all even and} \ h+k+l=4n \ \text{with} \ n \in \mathbb{Z} \\
 \text{Hexagonal closed packed} \rightarrow l  \ \text{even  or} \  h+2k\neq 3n \ \text{with} n \in \mathbb{Z}\\
-\end{cases}$
-\item \underline{Description}: Simplified selection rules for existence of the $(h,k,l)$ reflection for some crystal structure $S$. The only way to be generic is to consider the lattice centering (P, I, A, B, C, F) with the crystal structure to generate the selection rule or look at the group space directly.
+\end{cases}
+\label{eq:refelection_existence}
+ \end{equation}
+The only way to be generic is to consider the lattice centering (P, I, A, B, C, F) with the crystal structure to generate the selection rule or look at the group space directly.
 \item \underline{Source}: Regarder dans le folder
-\item \underline{Ref by}: 
+\item \underline{Ref by}: \cref{T_3}
 \end{itemize}
 \end{DD}
 
@@ -532,7 +560,7 @@ Permutations of $(a,b,c)$ and $(\alpha, \beta, \gamma)$ are also considered
 \noindent\colorbox{shadecolorDD}{\normalfont \textbf{STEM Moir{\'e} hologram}}
 \normalfont
 \begin{itemize}
-\item \underline{Equation}:  xxx
+\item \underline{Equation}:  \Cref{eq:SMH_1}
 \item \underline{Description}: The STEM electron micrograph is a 2D array corresponding to the 2D sampling of the crystal lattice $I_{C}$ with the STEM probe $P$
 \begin{equation}
 I_{STEM}(\vec{r}) = \sum_{q\in 
@@ -540,11 +568,21 @@ Q} I_C(\vec{r}) \ast P(\vec{r}) \times \delta(\vec{r}-p\vec{q})
 \end{equation}
 Using the Fourier series decomposition and assuming that the probe P acts as a simple passband resolving crystalline lattices up to the limit of resolution,
 \begin{equation}
+\begin{gathered}
 I_{STEM}(\vec{r}) = \sum_{q\in 
-Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow{r})} e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow{r})}(\vec{r}-\frac{\vec{q}}{p}) 
+Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{g_{hkl}^{C}} \cdot \overrightarrow{r}} e^{2i\pi\frac{\overrightarrow{q}}{p}\cdot \overrightarrow{r}} \\
+I_{STEM}(\vec{r}) = \sum_{q\in 
+Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{C}} +\frac{\overrightarrow{q}}{p}) \cdot \overrightarrow{r}}
+\end{gathered}
+\end{equation}
+If $\overrightarrow{q}=\overrightarrow{0}$ for all the resolved $\overrightarrow{g_{hkl}}$ then $I_{STEM} = I_{C}$ and $I_{STEM}$ is the proper discrete representation of $I_{C}$. If for at lease one $((h,k,l)$,  $\overrightarrow{q} \neq \overrightarrow{0}$ then $I_{STEM} \neq  I_{C}$ and the STEM micrograph is an undersampled representation of $I_{C}$. In that case, $I_{STEM} = I_{SMH}$ leading to the following expression.
+\begin{equation}
+I_{SMH}(\vec{r}) = \sum_{q\in 
+Q_{\Gamma_{p^{2}}}}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{g_{hkl}^{M}} \cdot \overrightarrow{r}}
+\label{eq:SMH_1}
 \end{equation}
 \item \underline{Source}: Regarder dans le folder
-\item \underline{Ref by}: 
+\item \underline{Ref by}: \cref{T_1}
 \end{itemize}
 \end{DD}
 
@@ -561,7 +599,7 @@ Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow
 \item \textbf{Output}:$(G^{\sigma}_{R})^{C}_{\mathcal{B}_{3}^{*}}$
 \item \textbf{Description} : For all the resolved reflection ($\norm{\overrightarrow{g_{hkl}}^{C}}_{\mathcal{B}_{3}^{*}} < R$), regroup all the allowed reflections ($S \in \Omega$) in $G^{\sigma}_{R}$ expressed in the base $\mathcal{B}_{3}^{*}$.
 \item \textbf{Source}: xxx
-\item \textbf{Ref by}: xxxx
+\item \textbf{Ref by}: \cref{T_2}, \cref{T_3}, \cref{DD_3}, \cref{DD_4}
 \end{itemize}
 \end{IM}
 
@@ -587,7 +625,7 @@ Q}\sum_{hkl} A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{C}} \cdot \overrightarrow
 \end{equation}
 All the reflections $(g_{hkl}^{C})_{\mathcal{B}_{S}^{*}}$ with $\nu_s=0$ are stored in  $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{\Gamma}^{*}}$
 \item \textbf{Source}: xxx
-\item \textbf{Ref by}: xxxx
+\item \textbf{Ref by}:\cref{T_1}, \cref{T_3}, \cref{DD_1}, \cref{DD_2}
 \end{itemize}
 \end{IM}
 
@@ -614,7 +652,7 @@ m_{hkl} = \lfloor (p\mu_s - \frac{1}{2}) \rfloor
 \end{gathered}
 \end{equation*}
 \item \textbf{Source}: xxx
-\item \textbf{Ref by}: xxxx
+\item \textbf{Ref by}:\cref{T_4}, \cref{DD_5}
 \end{itemize}
 \end{IM}
 
@@ -623,26 +661,26 @@ m_{hkl} = \lfloor (p\mu_s - \frac{1}{2}) \rfloor
 \noindent\colorbox{shadecolorIM}{\normalfont \textbf{Mask all the resolved Moir{\'e} reflections from the SMH individually}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: $I_{SMH}$, $(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$,
+\item \textbf{Input}: $I_{SMH}$, $(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, $\beta$
 \item \textbf{Output}:$\Psi_{SMH}$
 \item \textbf{Description}: For all reflection in $(G^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, define a mask around the reflection in Fourier space to isolate it from each other
-\begin{equation*}
+\begin{equation}
 \begin{cases}
 \forall \vec{\omega} = (\lambda, \mu) \in [\lambda_{s}^{M}-\beta, \lambda_{s}^{M}+\beta]\times [\mu_{s}^{M}-\beta, \mu_{s}^{M}+\beta], \Upsilon_{hkl}(\vec{\omega}) = 1   \\
 \text{else } \Upsilon_{hkl}(\vec{\omega}) = 0
 \end{cases}
-\end{equation*}
+\end{equation}
 The mask is then applied on the Fourier transform of the  STEM Moir{\'e} hologram
-\begin{equation*}
+\begin{equation}
 \begin{gathered}
 I_{SMH}(\vec{r})= \sum_{hkl}A_{hkl}e^{2i\pi \overrightarrow{(g_{hkl}^{M}} \cdot \overrightarrow{r})} \\
 \tilde{I}_{SMH}(\vec{\omega}) = \mathcal{FT}[I_{SMG}(\vec{r})](\vec{\omega})  = \sum_{hkl}A_{hkl}\delta{\overrightarrow{(g_{hkl}^{M}}} -\overrightarrow{\omega}) \\
-\tilde{I}_{hkl}^{\Upsilon}(\vec{\omega})=\Upsilon_{hkl}(\vec{\omega}) \times  \tilde{I}_{SMH}(\vec{\omega})= A_{hkl}\delta{\overrightarrow{(g_{hkl}^{M}}} -\overrightarrow{\omega})
+\tilde{I}_{\Upsilon_{hkl}}(\vec{\omega})=\Upsilon_{hkl}(\vec{\omega}) \times  \tilde{I}_{SMH}(\vec{\omega})= A_{hkl}\delta{\overrightarrow{(g_{hkl}^{M}}} -\overrightarrow{\omega})
 \end{gathered}
-\end{equation*}
-$\tilde{I}_{hkl}^{\Upsilon}(\vec{\omega})$ is regrouped for all reflections in $\Psi$.
+\end{equation}
+$\tilde{I}_{\Upsilon_{hkl}}(\vec{\omega})$ is regrouped for all reflections in $\Psi$.
 \item \textbf{Source}: xxx
-\item \textbf{Ref by}: xxxx
+\item \textbf{Ref by}: \cref{T_4}
 \end{itemize}
 \end{IM}
 
@@ -651,23 +689,23 @@ $\tilde{I}_{hkl}^{\Upsilon}(\vec{\omega})$ is regrouped for all reflections in $
 \noindent\colorbox{shadecolorIM}{\normalfont \textbf{Apply the Moir{\'e} correction on each individual reflection and reconstruct the oversample electron micrograph}}
 \normalfont
 \begin{itemize}
-\item \textbf{Input}: $(Q^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, $\Psi_{SMH}$
-\item \textbf{Output}:$I^{\text{rec}}$
+\item \textbf{Input}: $(Q^{\sigma}_{R})^{M}_{\mathcal{B}_{\Gamma}^{*}}$, $\Psi_{SMH}$, $p_{\text{rec}}$
+\item \textbf{Output}:$I_{\text{rec}}$
 \item \textbf{Description}: For each 2D array from $\Psi_{SMH}$, the opposite of the Moir{\'e} shift is applied using the following operation
-\begin{equation*}
+\begin{equation}
 \begin{gathered}
-\tilde{I}_{hkl}^{\text{rec}}(\vec{\omega}) = \tilde{I}_{hkl}^{\Upsilon}(\vec{\omega}) \ast \delta(\overrightarrow{\omega} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}}) \\
-\tilde{I}_{hkl}^{\text{rec}}(\vec{\omega}) = A_{hkl}\delta(\overrightarrow{g_{hkl}^{M}} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}} -\overrightarrow{\omega})
+\tilde{I}_{\text{rec}_{hkl}}(\vec{\omega}) = \tilde{I}_{\Upsilon_{hkl}}(\vec{\omega}) \ast \delta(\overrightarrow{\omega} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}}) \\
+\tilde{I}_{\text{rec}_{hkl}}(\vec{\omega}) = A_{hkl}\delta(\overrightarrow{g_{hkl}^{M}} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}} -\overrightarrow{\omega})
 \end{gathered}
-\end{equation*}
-The reconstruction of the image is performed by summing all the individual Moir{\'e} shifted 2D arrays and taking the inverse Fourier transform
-\begin{equation*}
+\end{equation}
+The reconstruction of the image is performed by summing all the individual Moir{\'e} shifted 2D arrays and taking the inverse Fourier transform on the $\Gamma_{p_\text{rec}^{2}}= [-\frac{1}{2p_\text{rec}}, \frac{1}{2p_\text{ref}}]^{2}$ spatial bandwidth.
+\begin{equation}
 \begin{gathered}
-I^{\text{rec}}(\vec{r}) = \mathcal{FT}^{-1}[\sum_{hkl} \tilde{I}_{hkl}^{\text{rec}}(\vec{\omega})]
+I_{\text{rec}}(\vec{r}) = \mathcal{FT}^{-1}[\sum_{hkl} \tilde{I}_{hkl}^{\text{rec}}(\vec{\omega})]
 \end{gathered}
-\end{equation*}
+\end{equation}
 \item \textbf{Source}: xxx
-\item \textbf{Ref by}: xxxx
+\item \textbf{Ref by}: \cref{T_4}
 \end{itemize}
 \end{IM}
 
@@ -680,17 +718,63 @@ the software is expected to exhibit.
 \subsection{Functional Requirements}
 
 \begin{R}
-\label{R_1}
+\label{R_user_input}
 \normalfont Provide an environment for the user to input 
-$I_{\mathit{SMH}_{\text{exp}}}$, $p,  I_{C_{\text{ref}}}$ and $p_{\text{ref}}$ 
-(\cref{IM_1}).
+ $a, b, c, \alpha, \beta, \gamma, R$, $I_{SMH}$, $p$, $\mathcal{B}_{S}$ and $\beta$.
 \end{R}
+
 \begin{R}
-\label{R_2}
-\normalfont Verify the format of the inputs $I_{\mathit{SMH}_{\text{exp}}}$ and 
-$I_{C_{\text{ref}}}$ to be 2D arrays composed of real numbers and verify $p$ to 
-be a real number strictly positive (\cref{IM_1}).
+\label{R_verify_crystal}
+\normalfont Verify $(a,b,c) \in {(\mathbb{R}^{+*})}^{3}$, verify $\alpha, \beta, \gamma \in [0,360[^{3}$ and verify that $S$ exists.
 \end{R}
+
+\begin{R}
+\label{R_verify_SMH}
+\normalfont Verify $I_{SMH}$ is a 2D array composed of real numbers and check $p \in \mathbb{R}^{+*}$.
+\end{R}
+
+\begin{R}
+\label{R_crystal_resolved}
+\normalfont Verify $R\in\mathbb{R}^{+*}$ and assure $(G^{\sigma}_{R})^{C}_{\mathcal{B}_{3}^{*}}$ is not empty
+\end{R}
+
+\begin{R}
+\label{R_sampling_base}
+\normalfont  $\mathcal{B}_{S}$ must be a direct orthonormal base.
+\end{R}
+
+\begin{R}
+\label{R_mask_existence}
+\normalfont Verify $\beta \in \mathbb{R}^{+*}$ and $\beta < \frac{1}{2p}$
+\end{R}
+
+\begin{R}
+\label{R_reflection_isolated}
+\normalfont The $\Upsilon_{hkl}$ must not overlap with each other (only one Moir{\'e} reflection $\overrightarrow{g_{hkl}}^{M}$ per $\Upsilon_{hkl}$ mask)
+\end{R}
+
+\begin{R}
+\label{R_pixel_rec}
+\normalfont Verify $p_{\text{rec}} \in \mathbb{R}^{+*}$, $p_{\text{rec}} > p$ and $ \frac{1}{p_{\text{rec}}} > \max\limits_{hkl} \norm{\overrightarrow{g_{hkl}^{M}} - \frac{1}{p} \times \overrightarrow{q_{n_{hkl},m_{hkl}}}}_{\mathcal{B}_{3}^{*}}$
+\end{R}
+
+\begin{R}
+\label{R_output_rec}
+\normalfont Output $I^{\text{rec}}$ to the user
+\end{R}
+
+\subsection{Non Functional Requirements}
+
+\begin{NR}
+\label{NR_1}
+\normalfont For the Moir{\'e} reconstruction to occur ( not be a simple Fourier filtering) at least one crystal reflection $\overrightarrow{g_{hkl}}^{C}$ must be different from its Moire counter part $\overrightarrow{g_{hkl}}^{M}$ (at least one sampling vector is non zero $\overrightarrow{q_{n_{hkl},m_{hkl}}} \neq \overrightarrow{0}$).
+\end{NR}
+
+\begin{NR}
+\label{NR_2}
+blbalba
+\end{NR}
+
 
 
 \end{document}
