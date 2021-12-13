@@ -4,6 +4,8 @@
 *.gz
 *.toc
 *.out
+*.lot
+*.lof
 
 # ignore ALL files in ANY directory named temp
 temp/
