@@ -6,6 +6,8 @@
 *.out
 *.lot
 *.lof
+*.xml
+*.pyc
 
 # ignore ALL files in ANY directory named temp
 temp/
