@@ -1,4 +1,3 @@
-# ignore ALL .log files
 *.log
 *.aux
 *.gz
@@ -8,6 +7,10 @@
 *.lof
 *.xml
 *.pyc
+
+.idea/
+.vscode/
+*.sw*
 
 # ignore ALL files in ANY directory named temp
 temp/
