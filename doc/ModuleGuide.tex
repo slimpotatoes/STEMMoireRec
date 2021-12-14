@@ -39,7 +39,7 @@
 }
 
 \newcommand{\progname}{STEMMoireRec}
-\externaldocument[SRS:]{../../SRS/SRS}
+\externaldocument[Req:]{Requirements}
 
 % Author choice to remove
 % \usepackage[round]{natbib}
@@ -80,31 +80,10 @@ STEMMoireRec}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-5/11/2017 & 1.0 & First Draft\\
-14/11/2017 & 1.1 & Object Structure Module removed \\
-26/11/2017 & 1.2 & \cref{AC_Assum_SmallStrain} statement modified to target exclusively \cref{M_StrainCalc} module\\
-27/11/2017 & 1.3 & Matched MG to MIS \\
+13/12/2021 & 1.0 & First Draft\\
 \bottomrule
 \end{tabularx}
 \end{table}
-
-\newpage
-\section{Symbols, Abbreviations and Acronyms}
-\label{symbols}
-
-Symbols, Abbreviations and Acronyms used in the Module guide document are regrouped under the following table, in \cref{SRS:table_symbols_SRS} and in \cref{SRS:table_acro_SRS} of the SRS document, and in \cref{TP:table_acro_Test_Plan} of the Test Plan document. Documents are available on \href{https://github.com/slimpotatoes/STEMMoireRec}{\progname{}} repository. \par\bigskip
-
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  GPA & Geometrical Phase Analysis \\
-  LSFM & Least Square Fit Method \\
-  FT & Fourier Transform \\
-  \bottomrule
-  \label{table_acro_Test_Plan}
-\end{tabular}
 
 \newpage
 
@@ -196,6 +175,33 @@ actually be implemented.
 The design of the system is intended to satisfy the requirements developed in
 the SRS. In this stage, the system is decomposed into modules. The connection
 between requirements and modules is listed in Table \ref{TblRT}.
+
+This section shows two traceability matrices: between the modules and the
+requirements and between the modules and the anticipated changes.
+
+% the table should use mref, the requirements should be named, use something
+% like fref
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
+\toprule
+\textbf{Req.} & \textbf{Modules}\\
+\midrule
+\cref{Req:R_user_input} & \cref{M_InputFormat} \\
+\cref{Req:R_verify_crystal} & \cref{M_InputFormat}, \cref{M_Crystal} \\
+\cref{Req:R_verify_SMH} & \cref{M_InputFormat}  \\
+\cref{Req:R_crystal_resolved} & \cref{M_InputFormat} \\
+\cref{Req:R_sampling_base} & \cref{M_InputFormat} \\
+\cref{Req:R_Moire_shift} & \cref{M_MoireSim}, \cref{M_Output} \\
+\cref{Req:R_mask_existence} & \cref{M_InputFormat} \\
+\cref{Req:R_reflection_isolated} & \cref{M_MoireRec}, \cref{M_Output} \\
+\cref{Req:R_pixel_rec} & \cref{M_InputFormat}, \cref{M_MoireRec}\\
+\cref{Req:R_output_rec} & \cref{M_MoireRec}, \cref{M_Output}\\
+\bottomrule
+\end{tabular}
+\caption{Trace Between Requirements and Modules}
+\label{TblRT}
+\end{table}
 
 \section{Module Decomposition} \label{SecMD}
 
@@ -307,60 +313,6 @@ elements related to the \progname{} data structure..
 \item[Implemented By:] Python library
 \end{description}
 
-\section{Traceability Matrix} \label{SecTM}
-
-This section shows two traceability matrices: between the modules and the
-requirements and between the modules and the anticipated changes.
-
-% the table should use mref, the requirements should be named, use something
-% like fref
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{Req.} & \textbf{Modules}\\
-\midrule
-\cref{SRS:R_1} & \cref{M_GUISMG}, \cref{M_Control}, \cref{M_Hardware} \\
-\cref{SRS:R_2} & \cref{M_InputFormat} \\
-\cref{SRS:R_3} & \cref{M_SMHSim}, \cref{M_Control} \\
-\cref{SRS:R_4} & \cref{M_GUISMG}, \cref{M_Hardware} \\
-\cref{SRS:R_5} & \cref{M_GUISMG}, \cref{M_Hardware} \\
-\cref{SRS:R_6} & \cref{M_InputFormat} \\
-\cref{SRS:R_7} & \cref{M_GPA}, \cref{M_Mask}, \cref{M_Control} \\
-\cref{SRS:R_8} & \cref{M_GUISMG}, \cref{M_Hardware} \\
-\cref{SRS:R_9} & \cref{M_InputFormat} \\
-\cref{SRS:R_10} & \cref{M_URef}, \cref{M_Control} \\
-\cref{SRS:R_11} & \cref{M_GUISMG}, \cref{M_Hardware} \\
-\cref{SRS:R_12} & \cref{M_MtoCConv}, \cref{M_InputFormat}, \cref{M_Control} \\
-\cref{SRS:R_13} & \cref{M_StrainCalc} \\
-\cref{SRS:R_14} & \cref{M_GUISMG}, \cref{M_Hardware}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Requirements and Modules}
-\label{TblRT}
-\end{table}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{p{0.2\textwidth} p{0.6\textwidth}}
-\toprule
-\textbf{AC} & \textbf{Modules}\\
-\midrule
-\cref{AC_Hardware} & \cref{M_Hardware}\\
-\cref{AC_FormatFile} & \cref{M_InputFormat}\\
-\cref{AC_Assum_SmallStrain} & \cref{M_StrainCalc}\\
-\cref{AC_SMH_algo} & \cref{M_SMHSim}\\
-\cref{AC_GPA_algo} & \cref{M_GPA}\\
-\cref{AC_Mask} & \cref{M_Mask}\\
-\cref{AC_RefFit} & \cref{M_LSFM}\\
-\cref{AC_Output} & \cref{M_GUISMG}\\
-\cref{AC_Data} & \cref{M_DataStruct}\\
-\bottomrule
-\end{tabular}
-\caption{Trace Between Anticipated Changes and Modules}
-\label{TblACT}
-\end{table}
-
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
@@ -374,12 +326,12 @@ the modules. It can be seen that the graph is a directed acyclic graph
 system, and modules in the higher level of the hierarchy are essentially simpler
 because they use modules from the lower levels.
 
-%\begin{figure}[H]
-%\centering
-%\includegraphics[width=\linewidth]{Figure_Hierarchy_update.png}
-%\caption{Use hierarchy among modules}
-%\label{FigUH}
-%\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{Figure_MG_STEMMoireRec.png}
+\caption{Use hierarchy among modules}
+\label{FigUH}
+\end{figure}
 
 \newpage
 
