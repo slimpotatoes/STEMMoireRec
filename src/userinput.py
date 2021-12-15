@@ -7,9 +7,11 @@ import datastruct as ds
 
 def read_dm3(filename):
     dm3 = nio.read(filename)
-    imagedata, pxsize = verify_data(dm3['data'], dm3['pixelSize'], dm3['pixelUnit'])
-    data = ds.STEMMoireData()
-
+    imagedata = verify_data(dm3['data'])
+    smh_data = ds.STEMMoireData(imagedata)
+    pxunit = verify_pixel_unit(dm3['pixelUnit'])
+    pxsize = verify_pixel_unit(dm3['pixelSize'])
+    smh_data.pxsize = pxsize * pxunit
     return smh_data
 
 def read_emd(filename):
@@ -20,21 +22,33 @@ def read_image(filename):
     im = iio.read(filename)
 
 
-def verify_data(imagedata, pxsize, pxunit):
+def verify_data(imagedata):
     if imagedata.ndim != 2:
         raise ValueError('the data loaded is not a 2D array')
     else:
         if imagedata.shape[0] != imagedata.shape[1]:
             raise ValueError('STEMMoireRec is currently not working for 2D arrays not having the same size along'
                              ' both directions')
-
     for value in np.nditer(np.isreal(imagedata)):
         if value is False:
             raise ValueError('The 2D array is not composed of real numbers.')
+    return imagedata
 
+def verify_pixel_size(pxise):
     if pxsize[0] != pxsize[1]:
         raise ValueError('The pixel spacing is different in both dimensions')
+    if isinstance(pxise, (int,float)) == False:
+        print('The pixel spacing is not recognized as a number, please calibrate the pixel spacing in pm manually')
+        return None
+    else:
+        if pxise[0] <= 0:
+            print('The pixel spacing is not a positive number, please input a proper pixel spacing in pm manually')
+            return None
+        else:
+            return pxise[0]
 
+
+def verify_pixel_unit(pxunit):
     if pxunit[0] != pxunit[1]:
         raise ValueError('The unit of the pixel spacing is different in both dimensions')
 
@@ -49,22 +63,5 @@ def verify_data(imagedata, pxsize, pxunit):
     elif pxunit[0] == 'pm':
         unit_cor = 1
     else:
-        raise ValueError('Pixel unit not recognized, please input the pixel spacing manually')
-
-    if verify_pixel_size(pxsize[0]) is True:
-        pxsize_final = pxsize[0] * unit_cor
-    else:
-        pxsize_final = None
-        raise ValueError('The pixel spacing must be a strictly positive real number')
-    return imagedata, pxsize_final
-
-
-def verify_pixel_size(pxise):
-    if isinstance(pxise, (int,float)) == False:
-        raise ValueError('The pixel size is not a number')
-    else:
-        if pxise <= 0:
-            return False
-        else:
-            return True
-
+        raise ValueError('Pixel unit not recognized, please input the pixel spacing pm manually')
+    return pxunit[0] * unit_cor
