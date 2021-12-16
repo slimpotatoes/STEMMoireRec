@@ -1,9 +1,11 @@
 import userinput
 import datastruct
 
+# simple test
 
-# Press the green button in the gutter to run the script.
+filename = 'example\Silicon.dm3'
+im = userinput.read_dm3(filename)
+
+
 if __name__ == '__main__':
-    print('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print('Letss Gooo!!')

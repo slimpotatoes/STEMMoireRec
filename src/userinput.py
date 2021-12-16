@@ -10,8 +10,10 @@ def read_dm3(filename):
     imagedata = verify_data(dm3['data'])
     smh_data = ds.STEMMoireData(imagedata)
     pxunit = verify_pixel_unit(dm3['pixelUnit'])
-    pxsize = verify_pixel_unit(dm3['pixelSize'])
-    smh_data.pxsize = pxsize * pxunit
+    pxsize = verify_pixel_size(dm3['pixelSize'])
+    if pxsize != None:
+        smh_data.pxsize = pxsize * pxunit
+    print('dm3 file imported with a pixel spacing of ', smh_data.pxsize , ' pm.')
     return smh_data
 
 def read_emd(filename):
@@ -34,18 +36,19 @@ def verify_data(imagedata):
             raise ValueError('The 2D array is not composed of real numbers.')
     return imagedata
 
-def verify_pixel_size(pxise):
+def verify_pixel_size(pxsize):
     if pxsize[0] != pxsize[1]:
         raise ValueError('The pixel spacing is different in both dimensions')
-    if isinstance(pxise, (int,float)) == False:
+    if isinstance(pxsize[0], (int,float, np. int, np.float, np.int16, np.float16, np.int32, np.float32,
+                              np.int64, np.float64)) == False:
         print('The pixel spacing is not recognized as a number, please calibrate the pixel spacing in pm manually')
         return None
     else:
-        if pxise[0] <= 0:
+        if pxsize[0] <= 0:
             print('The pixel spacing is not a positive number, please input a proper pixel spacing in pm manually')
             return None
         else:
-            return pxise[0]
+            return pxsize[0]
 
 
 def verify_pixel_unit(pxunit):
@@ -64,4 +67,4 @@ def verify_pixel_unit(pxunit):
         unit_cor = 1
     else:
         raise ValueError('Pixel unit not recognized, please input the pixel spacing pm manually')
-    return pxunit[0] * unit_cor
+    return unit_cor
