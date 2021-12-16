@@ -12,6 +12,7 @@
 .vscode/
 *.sw*
 __pycache__/
+.ipynb_checkpoints/
 
 # ignore ALL files in ANY directory named temp
 temp/
