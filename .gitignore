@@ -11,6 +11,7 @@
 .idea/
 .vscode/
 *.sw*
+__pycache__/
 
 # ignore ALL files in ANY directory named temp
 temp/
