@@ -18,11 +18,11 @@ def read_dm3(filename):
 
 def read_emd(filename):
     emd = nio.emd.emdReader(filename)
-    
+    #to do
     
 def read_image(filename):
     im = iio.read(filename)
-
+    #to do
 
 def verify_data(imagedata):
     if imagedata.ndim != 2:
@@ -39,7 +39,7 @@ def verify_data(imagedata):
 def verify_pixel_size(pxsize):
     if pxsize[0] != pxsize[1]:
         raise ValueError('The pixel spacing is different in both dimensions')
-    if isinstance(pxsize[0], (int,float, np. int, np.float, np.int16, np.float16, np.int32, np.float32,
+    if isinstance(pxsize[0], (int,float, np.int, np.float, np.int16, np.float16, np.int32, np.float32,
                               np.int64, np.float64)) == False:
         print('The pixel spacing is not recognized as a number, please calibrate the pixel spacing in pm manually')
         return None
@@ -68,3 +68,22 @@ def verify_pixel_unit(pxunit):
     else:
         raise ValueError('Pixel unit not recognized, please input the pixel spacing pm manually')
     return unit_cor
+
+def crystal_info(data, a, b, c, alpha, beta, gamma, sym):
+    alpha = np.pi * alpha / 180
+    beta = np.pi * beta / 180
+    gamma = np.pi * gamma / 180
+    data.crystal_info = (a, b, c, alpha, beta, gamma)
+    data.crystal_sym = sym
+    gamma_star_cos = (np.cos(alpha) * np.cos(beta) - np.cos(gamma)) / (np.sin(alpha) * np.sin(beta))
+    gamma_star_sin = 1 - gamma_star_cos ** 2
+    data.matrix_crystal_3Dortho = np.matrix([[a * np.sin(beta) * gamma_star_sin, 0 , 0],
+                                             [a * np.sin(beta) * gamma_star_cos, b * np.sin(beta) , 0],
+                                             [a * np.cos(beta), b * np.cos(beta), c]])
+    print(data.matrix_crystal_3Dortho)
+    return
+
+def exp_info(data, res, sampling_base):
+    data.stem_res = res
+    data.sampling_base = sampling_base
+    return
