@@ -11,7 +11,10 @@ class STEMMoireData(object):
         self.matrix_crystal_3Dortho = None
         self.sampling_base = None
         self.crystal_sym = None
-        self.list_allowed_reflections = []
+        self.allowed_reflections = []
+        self.allowed_reflections_sampling_base = []
+        self.crystal_reflections = []
+        self.moire_reflections = []
 
     def manual_pixel_size(self, pixelsize):
         if isnumeric(pixelsize, (int,float)) == True and pixelsize > 0:

@@ -85,5 +85,7 @@ def crystal_info(data, a, b, c, alpha, beta, gamma, sym):
 
 def exp_info(data, res, sampling_base):
     data.stem_res = res
-    data.sampling_base = sampling_base
+    #data.sampling_base = np.array(sampling_base)
+    data.sampling_base = np.array([[1/np.sqrt(2), 1/np.sqrt(2), 0], [0, 0, 1], [1/np.sqrt(2), - 1/np.sqrt(2), 0]])
+    print(data.sampling_base)
     return
