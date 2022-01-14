@@ -6,6 +6,7 @@ class STEMMoireData(object):
     def __init__(self, data, pxsize=None):
         self.data = data
         self.pxsize = None
+        self.pxsize_adjust = None
         self.crystal_info = None
         self.stem_res = None
         self.matrix_crystal_3Dortho = None
@@ -16,6 +17,7 @@ class STEMMoireData(object):
         self.crystal_reflections = []
         self.moire_reflections = []
         self.masks = []
+        self.masks_param = []
         self.reconstruction = []
 
     def manual_pixel_size(self, pixelsize):

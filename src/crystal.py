@@ -1,6 +1,9 @@
 import numpy as np
 
 def list_reflections(data, max_hkl):
+    data.allowed_reflections = []
+    data.allowed_reflections_sampling_base = []
+    data.crystal_reflections = []
     for h in range(-max_hkl, max_hkl):
         for k in range(-max_hkl, max_hkl):
             for l in range(-max_hkl, max_hkl):

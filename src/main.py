@@ -21,12 +21,15 @@ crystal.list_reflections(im, 10)
 moiresim.simulate_moire_sampling(im)
 view.imview_sim(im)
 
-moire_masked = moirerec.masking_moire_ft(50, 25, im)
+masks_param = moirerec.set_masks_param(50, 25, im, 330.5)
+view.imview_mask(masks_param, im.data)
+
+moire_masked = moirerec.masking_moire_ft(masks_param, im)
 view.imview(np.log10(np.abs(moire_masked)), vmin=0)
 
 rec = moirerec.moire_reconstruction(im, 7)
 view.imview(np.abs(rec))
-view.imview_fft(np.abs(rec), vmin=0)
+#view.imview_fft(np.abs(rec), vmin=0)
 
 if __name__ == '__main__':
     print('Letss Gooo!!')

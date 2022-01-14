@@ -13,7 +13,8 @@ def moire_shift(p, g_c_x, g_c_y):
 
 
 def simulate_moire_sampling(data):
-    p = data.pxsize
+    data.moire_reflections = []
+    p = data.pxsize_adjusted
     for reflection in data.crystal_reflections:
         if p <= 0:
             ValueError('p <= 0 is not allowed')
@@ -25,20 +26,5 @@ def simulate_moire_sampling(data):
                                            'hkl': reflection['hkl']})
         else:
             ValueError('Inappropriate pixel spacing')
-    print("Moire simulation done")
+    print('Moire sampling simulation done with the pixel spacing : ', p, ' pm')
     return data.moire_reflections
-
-'''def moire_coordinate_relative(data):
-    p = data.pxsize
-    for reflection in data.crystal_reflections:
-        if p <= 0:
-            ValueError('p <= 0 is not allowed')
-        if p > 0:
-            shift = moire_shift(p, reflection['vector'][0], reflection['vector'][1])
-            g_moire.append({'Moire_project' : np.array([(reflection['vector'][0] - shift[0] * 1 / p) * 2 * p,
-                                                        (reflection['vector'][1] - shift[1] * 1 / p) * 2 * p]),
-                            'shift' : np.array([shift[0], shift[1]]),
-                            'hkl' : g['hkl']})
-        else:
-            ValueError('Inappropriate pixel spacing')
-    return data.moire_reflections'''

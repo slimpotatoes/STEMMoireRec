@@ -13,6 +13,7 @@ def read_dm3(filename):
     pxsize = verify_pixel_size(dm3['pixelSize'])
     if pxsize != None:
         smh_data.pxsize = pxsize * pxunit
+        smh_data.pxsize_adjusted = smh_data.pxsize
     print('dm3 file imported with a pixel spacing of ', smh_data.pxsize , ' pm.')
     return smh_data
 

@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Rectangle, Circle
 import datastruct
 
 plt.style.use('dark_background')
@@ -42,3 +42,15 @@ def imview_sim(data):
     ax.add_artist(SMH_Gamma)
     plt.show()
     return
+
+def imview_mask(masks_param, image, cmap='gray', vmin=None, vmax=None):
+    fig = plt.figure(figsize=(6, 6))
+    ax = fig.add_subplot(111)
+    fft_image = np.log10(np.abs(np.fft.fftshift(np.fft.fft2(image))))
+    ax.imshow(fft_image, cmap=cmap, vmin=vmin, vmax=vmax)
+    for mask in masks_param:
+        circ = Circle((mask['mask_x'], mask['mask_y']), mask['mask_radius'], fill=False, color='red')
+        ax.add_artist(circ)
+        ax.annotate(mask['hkl'], (mask['mask_x'], mask['mask_y']))
+    plt.show()
+    return 
