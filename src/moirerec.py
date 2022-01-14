@@ -32,12 +32,12 @@ def masking_moire_ft(center_r, reflection_r, data):
         moire_ft_masked = np.add(moire_ft_masked_reflection, moire_ft_masked)
         data.masks.append({'hkl': reflection['hkl'], 'mask_x': mask_x, 'mask_y': mask_y, 'mask_radius': reflection_r,
                            'moire_ft_masked': moire_ft_masked_reflection, 'shift' : reflection['shift']})
-        print(reflection['hkl'], mask_x, mask_y)
+        #print(reflection['hkl'], mask_x, mask_y)
     return moire_ft_masked
 
 def moire_reconstruction(data, tiles):
     rec_image_fft = np.zeros((tiles * np.shape(data.data)[0], tiles * np.shape(data.data)[1]), dtype=np.complex128)
-    print(np.shape(rec_image_fft))
+    print('Shape of the reconstructed microgprah ', np.shape(rec_image_fft))
     for mask in data.masks:
         rec_temp = np.zeros((tiles * np.shape(data.data)[0], tiles * np.shape(data.data)[1]), dtype=np.complex128)
         index_x_0 = np.shape(rec_image_fft)[0] / 2 - mask['shift'][1] * np.shape(data.data)[0] - np.shape(data.data)[0] / 2

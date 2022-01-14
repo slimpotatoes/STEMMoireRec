@@ -18,10 +18,8 @@ userinput.exp_info(im, 120, [[1, 1, 0], [0, 0, 1], [1, -1, 0]])
 
 crystal.list_reflections(im, 10)
 
-a = moiresim.simulate_moire_sampling(im)
+moiresim.simulate_moire_sampling(im)
 view.imview_sim(im)
-
-print(a)
 
 moire_masked = moirerec.masking_moire_ft(50, 25, im)
 view.imview(np.log10(np.abs(moire_masked)), vmin=0)

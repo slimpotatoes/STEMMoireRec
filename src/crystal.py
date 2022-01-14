@@ -10,7 +10,7 @@ def list_reflections(data, max_hkl):
                     if allowed_reflection(data.crystal_sym, h, k, l) == True:
                         #print(reflection, 1 / norm_vector(reflection_proj_3D), data.crystal_info[0] / np.sqrt(h**2 + k **2 + l **2))
                         data.allowed_reflections.append({'vector': reflection_proj_3D, 'hkl': (h, k, l)})
-                        print(data.allowed_reflections[-1])
+                        #print(data.allowed_reflections[-1])
                         reflection_proj_sampling_base = project_new_base(reflection_proj_3D, np.linalg.inv(np.matrix(np.transpose(data.sampling_base))))
                         data.allowed_reflections_sampling_base.append(
                             {'vector': reflection_proj_sampling_base, 'hkl': (h, k, l)})

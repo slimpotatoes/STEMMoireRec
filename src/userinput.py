@@ -80,12 +80,15 @@ def crystal_info(data, a, b, c, alpha, beta, gamma, sym):
     data.matrix_crystal_3Dortho = np.matrix([[a * np.sin(beta) * gamma_star_sin, 0 , 0],
                                              [a * np.sin(beta) * gamma_star_cos, b * np.sin(beta) , 0],
                                              [a * np.cos(beta), b * np.cos(beta), c]])
-    print(data.matrix_crystal_3Dortho)
-    return
+    #print(data.matrix_crystal_3Dortho)
 
 def exp_info(data, res, sampling_base):
     data.stem_res = res
-    #data.sampling_base = np.array(sampling_base)
-    data.sampling_base = np.array([[1/np.sqrt(2), 1/np.sqrt(2), 0], [0, 0, 1], [1/np.sqrt(2), - 1/np.sqrt(2), 0]])
-    print(data.sampling_base)
-    return
+    data.sampling_base = np.array(sampling_base)
+    #print('Sampling base :', data.sampling_base)
+    new_base = np.zeros((3, 3))
+    for i in range(0, 3):
+        for j in range(0, 3):
+            new_base[i, j] = 1 / np.sqrt(data.sampling_base[i, 0] ** 2 + data.sampling_base[i, 1] ** 2 + data.sampling_base[i, 2] ** 2 ) * data.sampling_base[i, j]
+    #print('Sampling base :', new_base)
+    data.sampling_base = new_base
