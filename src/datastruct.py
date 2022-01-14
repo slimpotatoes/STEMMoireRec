@@ -15,6 +15,8 @@ class STEMMoireData(object):
         self.allowed_reflections_sampling_base = []
         self.crystal_reflections = []
         self.moire_reflections = []
+        self.masks = []
+        self.reconstruction = []
 
     def manual_pixel_size(self, pixelsize):
         if isnumeric(pixelsize, (int,float)) == True and pixelsize > 0:

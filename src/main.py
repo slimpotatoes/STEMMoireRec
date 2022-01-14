@@ -3,6 +3,8 @@ import datastruct
 import view
 import crystal
 import moiresim
+import moirerec
+import numpy as np
 
 # simple test
 
@@ -20,6 +22,13 @@ a = moiresim.simulate_moire_sampling(im)
 view.imview_sim(im)
 
 print(a)
+
+moire_masked = moirerec.masking_moire_ft(50, 25, im)
+view.imview(np.log10(np.abs(moire_masked)), vmin=0)
+
+rec = moirerec.moire_reconstruction(im, 7)
+view.imview(np.abs(rec))
+view.imview_fft(np.abs(rec), vmin=0)
 
 if __name__ == '__main__':
     print('Letss Gooo!!')
