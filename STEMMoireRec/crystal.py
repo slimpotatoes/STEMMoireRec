@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def list_reflections(data, max_hkl):
     data.allowed_reflections = []
@@ -17,8 +18,9 @@ def list_reflections(data, max_hkl):
                         reflection_proj_sampling_base = project_new_base(reflection_proj_3D, np.linalg.inv(np.matrix(np.transpose(data.sampling_base))))
                         data.allowed_reflections_sampling_base.append(
                             {'vector': reflection_proj_sampling_base, 'hkl': (h, k, l)})
-                       # print(data.allowed_reflections_sampling_base[-1])
-                        if reflection_proj_sampling_base[2] == 0 and (
+                        # print(data.allowed_reflections_sampling_base[-1])
+                        # print(reflection_proj_sampling_base[2], reflection_proj_sampling_base[1])
+                        if math.isclose(reflection_proj_sampling_base[2], 0, abs_tol=1e-12) == True and (
                                 reflection_proj_sampling_base[0] != 0 or reflection_proj_sampling_base[1] != 0):
                             data.crystal_reflections.append({'crystal_x': reflection_proj_sampling_base[0],
                                                              'crystal_y': reflection_proj_sampling_base[1],
