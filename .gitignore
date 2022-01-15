@@ -1,3 +1,4 @@
+test.txt
 *.log
 *.aux
 *.gz
@@ -16,3 +17,6 @@ __pycache__/
 
 # ignore ALL files in ANY directory named temp
 temp/
+build/
+dist/
+STEMMoireRec.egg-info/

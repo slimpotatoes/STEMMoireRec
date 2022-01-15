@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Circle
-import datastruct
 
 plt.style.use('dark_background')
 

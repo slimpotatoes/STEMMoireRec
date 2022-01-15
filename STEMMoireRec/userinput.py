@@ -2,7 +2,7 @@ import numpy as np
 import imageio as iio
 import ncempy.io as nio
 
-import datastruct as ds
+import STEMMoireRec.datastruct as ds
 
 
 def read_dm3(filename):

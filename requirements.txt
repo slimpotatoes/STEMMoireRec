@@ -1,0 +1,6 @@
+imageio
+matplotlib
+matplotlib-inline
+matplotlib-scalebar
+ncempy
+numpy

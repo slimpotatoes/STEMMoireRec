@@ -1,5 +1,5 @@
 import numpy as np
-import moiresim
+import STEMMoireRec.moiresim
 
 def mask_gaussian(center, r, shape):
     """Return the mask function in the image space I defined by shape (see MIS). The Gaussian mask takes the center of a
@@ -24,7 +24,7 @@ def set_masks_param(center_r, reflection_r, data, pixel_size = None):
         p = pixel_size
         data.pxsize_adjusted = p
         print('Pixel spacing adjusted to : ', pixel_size, ' pm')
-        moiresim.simulate_moire_sampling(data)
+        STEMMoireRec.moiresim.simulate_moire_sampling(data)
     else:
         raise ValueError('Invalid pixel spacing')
 
@@ -102,4 +102,4 @@ def moire_reconstruction(data, tiles):
         rec_temp[int(index_x_0):int(index_x_1), int(index_y_0):int(index_y_1)] = mask['moire_ft_masked']
         rec_image_fft = np.add(rec_image_fft, rec_temp)
     rec_image = np.fft.ifft2(np.fft.ifftshift(rec_image_fft))
-    return np.abs(rec_image)
+    return rec_image

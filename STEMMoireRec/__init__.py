@@ -1,6 +1,6 @@
-import userinput
-import datastruct
-import view
-import crystal
-import moiresim
-import moirerec
+from .userinput import *
+from .datastruct import *
+from .view import *
+from .crystal import *
+from .moiresim import *
+from .moirerec import *
