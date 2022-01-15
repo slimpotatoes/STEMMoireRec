@@ -19,6 +19,6 @@ setup(
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: BSD License",
     ],
-    python_requires='>=3.9',
+    python_requires='>=3.7',
     install_requires=read('requirements.txt')
 )
